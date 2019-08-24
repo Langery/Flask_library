@@ -13,11 +13,7 @@
 - [ ] flask 配置文件
   - [ ] 数据库链接写成方法
 - [ ] Connection 静态变量
-<<<<<<< HEAD
-- [x] connection 连接池（pymysql 自带连接池）
-=======
 - [X] connection 连接池（pymysql 自带连接池）
->>>>>>> 17dd59bd26e9da24fd760444730ff31ae87ee7ba
 
 > finished
 
@@ -26,15 +22,6 @@
 
 ### Notes
 
-<<<<<<< HEAD
- 1. 登录注册都为 POST 请求方式
-
- ###　MySQL order
-
- 1. 删除一条数据
-``` sql
-  DELETE FROM tablename WHERE NAME = 'abc'
-=======
 1. 登录注册都为 POST 请求方式
 
 ###　MySQL order
@@ -43,7 +30,6 @@
 ``` sql
   DELETE FROM tablename WHERE NAME = 'abc'
 ```
->>>>>>> 17dd59bd26e9da24fd760444730ff31ae87ee7ba
 
 ### Links:
 
