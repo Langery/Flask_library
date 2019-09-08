@@ -1,7 +1,7 @@
 import json
 from flask import Flask, render_template, request, redirect, url_for, make_response
 import pymysql
-from flask_cors import *
+from flask_cors import CORS
 from DBUtils.PersistentDB import PersistentDB
 
 app = Flask(__name__)
