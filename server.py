@@ -1,25 +1,27 @@
-import json
+import json, pymysql, config
 from flask import Flask, render_template, request, redirect, url_for, make_response
-import pymysql
 from flask_cors import CORS
 from DBUtils.PersistentDB import PersistentDB
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
+app.config.from_object(config.Config)
+SQLConfig = config.SQLConfig
+
 POOL = PersistentDB(
-  creator=pymysql, # use data model
-  maxusage=None, # used more times
-  setsession=[], # the order list before start
-  ping=0, # check MySQL server is available
-  closeable=False, # ignored the `conn.close()` ,
-  threadlocal=None, # save the link object
-  host='106.14.190.190',
-  port=7306,
-  user='',
-  password='',
-  database='',
-  charset='utf8'
+  creator = pymysql, # use data model
+  maxusage = None, # used more times
+  setsession = [], # the order list before start
+  ping = 0, # check MySQL server is available
+  closeable = False, # ignored the `conn.close()` ,
+  threadlocal = None, # save the link object
+  host = SQLConfig.host,
+  port = SQLConfig.port,
+  user = SQLConfig.user,
+  password = SQLConfig.password,
+  database = SQLConfig.database,
+  charset = SQLConfig.charset
 )
 
 # 测试接口
