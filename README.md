@@ -34,3 +34,4 @@
 ### Links:
 
 1. [Python Flask数据库连接池](https://www.cnblogs.com/supery007/p/8206442.html)
+2. [Python编程：flask-cors模块解决Flask跨域请求Cross-Origin问题](https://blog.csdn.net/mouday/article/details/85219076)

@@ -1,9 +1,11 @@
 import json
 from flask import Flask, render_template, request, redirect, url_for, make_response
 import pymysql
+from flask_cors import *
 from DBUtils.PersistentDB import PersistentDB
 
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 
 POOL = PersistentDB(
   creator=pymysql, # use data model
@@ -54,7 +56,7 @@ def login():
   rowName = cursor.execute(sqlName,[username])
   rowPws = cursor.execute(sqlPwd,[password])
   conn.commit()
-  conn.close() # false closure
+  # conn.close() # false closure
   if rowName >= 1:
     nameData = True
   else:
