@@ -8,6 +8,7 @@ CORS(app, supports_credentials=True)
 
 app.config.from_object(config.Config)
 SQLConfig = config.SQLConfig
+# print(SQLConfig.user)
 
 POOL = PersistentDB(
   creator = pymysql, # use data model
@@ -42,21 +43,26 @@ POST way to save data
 @app.route('/login', methods=['POST'])
 def login():
   print('login')
-  conn = POOL.connection()
+  # print(request.get_data())
+  # print(request.data)
+  data = request.get_data()
 
-  username = request.form.get('name')
-  password = request.form.get('password')
+  username = json.loads(data)['username']
+  password = json.loads(data)['password']
   print(username, password)
+  conn = POOL.connection()
   cursor = conn.cursor()
+  
   # select
-  sqlName = 'SELECT * FROM login where name = %s'
-  sqlPwd = 'SELECT * FROM login where pwd = %s'
+  sqlName = 'SELECT * FROM login WHERE name = %s'
+  sqlPwd = 'SELECT * FROM login WHERE pwd = %s'
   # add
   # find = 'insert into login(name, pwd, nickname) values(%s, %s, %s)'
   # endFind = cursor.execute(find, [username, password, ''])
   # print(endFind)
   rowName = cursor.execute(sqlName,[username])
   rowPws = cursor.execute(sqlPwd,[password])
+  print(rowName, rowPws)
   conn.commit()
   # conn.close() # false closure
   if rowName >= 1:
