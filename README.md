@@ -23,6 +23,11 @@
 ### Notes
 
 1. 登录注册都为 POST 请求方式
+2. Address already in use
+``` python
+  sudo lsof -i:5000
+  kill 进程编号(Number)
+```
 
 ###　MySQL order
 
