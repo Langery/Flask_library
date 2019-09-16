@@ -58,6 +58,6 @@ def register():
   # find = 'insert into login(name, pwd, nickname) values(%s, %s, %s)'
   # endFind = cursor.execute(find, [username, password, ''])
   # print(endFind)
-  
+
 if __name__ == '__main__':
   app.run()

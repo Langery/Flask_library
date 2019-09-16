@@ -43,3 +43,4 @@
 3. [Flask了解和基础配置及使用](https://www.jianshu.com/p/997e68df40e3)
 4. [Flask配置参数简单说明](https://blog.csdn.net/qq_42517220/article/details/88687341)
 5. [flask配置文件](https://www.jianshu.com/p/6b9a77f1c0cf)
+6. [Deleting a Git commit](https://www.jianshu.com/p/073acdc79c7b)
