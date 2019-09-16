@@ -49,6 +49,7 @@ def register():
   reg = Register()
   findHad = reg.findHad(config)
   print(findHad)
+  return findHad
 
   # add
   # find = 'insert into login(name, pwd, nickname) values(%s, %s, %s)'
