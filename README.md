@@ -29,7 +29,7 @@
   kill 进程编号(Number)
 ```
 
-###　MySQL order
+### MySQL order
 
 1. 删除一条数据
 ``` sql
