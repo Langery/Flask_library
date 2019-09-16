@@ -3,17 +3,15 @@ import json
 from classStore.server.dataLab import SQLFun
 
 class Login():
-  def __init__(self, config):
-    print('success')
+  def __init__(self):
+    print('success use login')
     data = request.get_data()
     username = json.loads(data)['username']
     password = json.loads(data)['password']
     print(username, password)
-    self.config = config
     self.username = username
     self.password = password
-  def select(self):
-    config = self.config
+  def select(self, config):
     username = self.username
     password = self.password
     conn = config.connection()

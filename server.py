@@ -6,6 +6,7 @@ from DBUtils.PersistentDB import PersistentDB
 # import
 from classStore.first import First
 from classStore.login import Login
+from classStore.register import Register
 from classStore.server.dataLab import POOL
 
 app = Flask(__name__)
@@ -31,8 +32,8 @@ POST way to save data
 '''
 @app.route('/login', methods=['POST'])
 def login():
-  res = Login(config)
-  select = res.select()
+  res = Login()
+  select = res.select(config)
   print(select)
   # print(select['username'])
   # if not(select['username']):
@@ -45,15 +46,10 @@ def login():
 
 @app.route('/register', methods=['POST'])
 def register():
-  print('register')
-  data = request.get_data()
+  reg = Register()
+  findHad = reg.findHad(config)
+  print(findHad)
 
-  username = json.loads(data)['username']
-  password = json.loads(data)['password']
-  nickname = json.loads(data)['nickname']
-  print(username, password, nickname)
-  conn = config.connection()
-  cursor = conn.cursor()
   # add
   # find = 'insert into login(name, pwd, nickname) values(%s, %s, %s)'
   # endFind = cursor.execute(find, [username, password, ''])
