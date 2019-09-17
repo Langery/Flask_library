@@ -34,8 +34,12 @@ class Login():
     else:
       pwdData = False
     res = {}
-    res['username'] = nameData
-    res['password'] = pwdData
+    # res['username'] = nameData
+    # res['password'] = pwdData
+    if nameData and pwdData:
+      res['backData'] = True
+    else:
+      res['backData'] = False
     print(res)
     return json.dumps(res)
     # return res

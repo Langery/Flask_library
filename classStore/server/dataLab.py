@@ -30,3 +30,21 @@ class SQLFun():
     way = self.way
     lab = self.lab
     return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + ' =%s'
+  def add(self, *key):
+    print(key)
+    print(type(key))
+    lab = self.lab
+    valueS = ''
+    keyS = ''
+    for index, everyOne in enumerate(key):
+      keyS += everyOne+','
+      valueS += '%s,'
+    # find = 'insert into login(name, pwd, nickname) values(%s, %s, %s)'
+    # endFind = cursor.execute(find, [username, password, ''])
+    # print(endFind)
+    keyS = keyS[:-1]
+    valueS = valueS[:-1]
+    print(keyS)
+    print(valueS)
+    print('INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')')
+    return 'INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')'

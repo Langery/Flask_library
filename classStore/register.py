@@ -16,6 +16,7 @@ class Register():
   def findHad(self, config):
     username = self.username
     nickname = self.nickname
+    password = self.password
     conn = config.connection()
     cursor = conn.cursor()
     # find in SQL
@@ -35,7 +36,22 @@ class Register():
     else:
       nickData = False
     res = {}
-    res['username'] = nameData
-    res['nickname'] = nickData
-    print(res)
-    return json.dumps(res)
+    if nameData and nickData:
+      # res['username'] = nameData
+      # res['nickname'] = nickData
+      res['backData'] = False
+      print(res)
+      return json.dumps(res)
+    else:
+      addUser = regSQL.add('name', 'pwd', 'nickname')
+      print(addUser)
+      rowAdd = cursor.execute(addUser, [username, password, nickname])
+      print(rowAdd)
+      conn.commit()
+      if rowAdd >= 1:
+        addData = True
+      else:
+        addData = False
+      res = {}
+      res['backData'] = addData
+      return json.dumps(res)
