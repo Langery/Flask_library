@@ -6,23 +6,26 @@
 
 - [ ] 针对多种请求方式需要单独做处理
 - [x] 连接到数据库
+  - [ ] 数据校验
 - [ ] 对数据库做数据存储和处理
 - [ ] 待续...
 
 > advice
 - [ ] flask 配置文件
   - [ ] 数据库链接写成方法
-- [ ] Connection 静态变量
+- [x] Connection 静态变量
 - [X] connection 连接池（pymysql 自带连接池）
 
 > finished
 
 - [x] 实现前端对后台的链接和通讯
+- [x] 实现登录和注册接口
+- [x] 封装独立 Class 类，并实现调用
 - [ ] 待续...
 
 ### Notes
 
-1. 登录注册都为 POST 请求方式
+1. 登录注册都为 POST 请求方式，传入格式为 json 格式
 2. Address already in use
 ``` python
   sudo lsof -i:5000
