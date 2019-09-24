@@ -1,4 +1,4 @@
-import json, pymysql, config
+import json, config
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from flask_cors import CORS
 from DBUtils.PersistentDB import PersistentDB
