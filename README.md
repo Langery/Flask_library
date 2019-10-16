@@ -1,5 +1,11 @@
 # Flask_library
 
+> 启动
+
+``` python
+  python3 server.py
+```
+
 ### Flask 后台库
 
 > idea
