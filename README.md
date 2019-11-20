@@ -22,6 +22,7 @@
   - [ ] 数据库链接写成方法
 - [x] Connection 静态变量
 - [X] connection 连接池（pymysql 自带连接池）
+- [ ] 缓存区（如：redis）
 - [ ] 安全性监控
 - [ ] 待续...
 
