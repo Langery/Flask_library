@@ -36,6 +36,7 @@
 - [x] 实现前端对后台的链接和通讯
 - [x] 实现登录和注册接口
 - [x] 封装独立 Class 类，并实现调用
+- [x] 实现外网访问
 - [ ] 待续...
 
 ### Notes
@@ -45,6 +46,12 @@
 ``` python
   sudo lsof -i:5000
   kill 进程编号(Number)
+```
+3. 外网访问
+``` python
+  # 修改 app.run
+  app.run(host='0.0.0.0', port=5000)
+  # 获取本机 ip 即可访问
 ```
 
 ### MySQL order
