@@ -20,7 +20,7 @@ class Register():
     conn = config.connection()
     cursor = conn.cursor()
     # find in SQL
-    regSQL = SQLFun('*', 'login')
+    regSQL = SQLFun('*', 'users')
     
     sqlUser = regSQL.select('name')
     sqlNick = regSQL.select('nickname')

@@ -17,7 +17,7 @@ class Login():
     conn = config.connection()
     cursor = conn.cursor()
     # select
-    loginSQL = SQLFun('*', 'login')
+    loginSQL = SQLFun('*', 'users')
     sqlName = loginSQL.select('name')
     sqlPwd = loginSQL.select('pwd')
     rowName = cursor.execute(sqlName,[username])
