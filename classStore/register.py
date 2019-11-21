@@ -21,10 +21,13 @@ class Register():
     cursor = conn.cursor()
     # find in SQL
     regSQL = SQLFun('*', 'login')
+    
     sqlUser = regSQL.select('name')
     sqlNick = regSQL.select('nickname')
+
     rowUser = cursor.execute(sqlUser, [username])
-    rowNick =cursor.execute(sqlNick, [nickname])
+    rowNick = cursor.execute(sqlNick, [nickname])
+    
     print(rowUser, rowNick)
     conn.commit()
     if rowUser >= 1:
