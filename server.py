@@ -7,6 +7,7 @@ from DBUtils.PersistentDB import PersistentDB
 from classStore.first import First # 测试接口
 from classStore.login import Login
 from classStore.register import Register
+from classStore.calendar import Calendar
 from classStore.server.dataLab import POOL
 
 app = Flask(__name__)
@@ -35,13 +36,6 @@ def login():
   res = Login()
   select = res.select(config)
   print(select)
-  # print(select['username'])
-  # if not(select['username']):
-  #   # false
-  #   return False
-  # if not(select['password']):
-  #   # false
-  #   return False
   return select
 
 @app.route('/register', methods=['POST'])
@@ -50,6 +44,12 @@ def register():
   findHad = reg.findHad(config)
   print(findHad)
   return findHad
+
+@app.route('/canlendar', method=['POST'])
+def getUser():
+  cal = Calendar()
+  getUser = cal.getUser(config)
+  return 'get user success'
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)

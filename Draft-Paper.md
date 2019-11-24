@@ -24,3 +24,22 @@
     - 数据格式：json
     - 对象内容数据：objcet
 2. 如果是按照年的方式的话需要逐层过滤，获取到指定的日期
+
+### 草稿
+
+1. server.py
+``` python
+	@app.route('/login', methods=['POST'])
+	def login():
+		res = Login()
+		select = res.select(config)
+		print(select)
+		# print(select['username'])
+		# if not(select['username']):
+		#   # false
+		#   return False
+		# if not(select['password']):
+		#   # false
+		#   return False
+		return select
+```
