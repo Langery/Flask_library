@@ -17,13 +17,16 @@
   - [ ] delete
 - [x] 连接到数据库
   - [ ] 数据校验
-  - [ ] 数据库做表链接 -> **创建表关联**
+  - [ ] 数据库做表链接
+    - [ ] **创建表关联**
 - [ ] 对数据库做数据存储和处理
 - [ ] 表单数据处理
 - [ ] 日历
   - [ ] 存/取
   - [ ] 存储格式和请求方式
   - [ ] 数据表建立
+- [ ] Blueprint
+  - [ ] 针对不同的权限进行路由配置
 - [ ] 待续...
 
 > advice
@@ -33,6 +36,11 @@
 - [X] connection 连接池（pymysql 自带连接池）
 - [ ] 缓存区（如：redis）
 - [ ] 安全性监控
+- [ ] 待续...
+
+> need to do
+
+- [ ] 创建总入口，然后通过总入口做请求下发
 - [ ] 待续...
 
 > finished
@@ -74,3 +82,4 @@
 4. [Flask配置参数简单说明](https://blog.csdn.net/qq_42517220/article/details/88687341)
 5. [flask配置文件](https://www.jianshu.com/p/6b9a77f1c0cf)
 6. [Deleting a Git commit](https://www.jianshu.com/p/073acdc79c7b)
+7. [flask项目结构（三）使用蓝图](https://www.cnblogs.com/jackadam/p/8684148.html)

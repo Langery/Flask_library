@@ -4,10 +4,11 @@ from flask_cors import CORS
 from DBUtils.PersistentDB import PersistentDB
 
 # import
-from classStore.first import First # 测试接口
-from classStore.login import Login
-from classStore.register import Register
-from classStore.calendar import Calendar
+from classStore.requestway.first import First # 测试接口
+from classStore.requestway.login import Login
+from classStore.requestway.register import Register
+from classStore.requestway.calendar import Calendar
+# data lab
 from classStore.server.dataLab import POOL
 
 app = Flask(__name__)
@@ -45,7 +46,7 @@ def register():
   print(findHad)
   return findHad
 
-@app.route('/canlendar', method=['POST'])
+@app.route('/canlendar', methods=['POST'])
 def getUser():
   cal = Calendar()
   getUser = cal.getUser(config)
