@@ -36,6 +36,8 @@
 - [X] connection 连接池（pymysql 自带连接池）
 - [ ] 缓存区（如：redis）
 - [ ] 安全性监控
+- [ ] Hibemate
+- [ ] Powerdesigner
 - [ ] 待续...
 
 > need to do

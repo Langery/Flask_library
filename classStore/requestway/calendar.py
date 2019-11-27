@@ -11,9 +11,15 @@ class Calendar():
     self.username = username
   def getUser(self, config):
     username = self.username
+    # find user id SQL
+    selectSQL = SQLFun('*', 'users')
+    # get user id
+    # sqlUserId = calSQL.select('userId')
+    sqlUserId = selectSQL.select('id')
+    print(sqlUserId)
     # select SQL
     calSQL = SQLFun('*', 'event')
-    # get user id
-    sqlUserId = calSQL.select('userId')
-    print(sqlUserId)
-
+    sqlUerName = selectSQL.select('userId')
+  
+  def getTime(self, config):
+    print('success link get time')    
