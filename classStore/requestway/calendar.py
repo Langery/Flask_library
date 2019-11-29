@@ -22,4 +22,9 @@ class Calendar():
     sqlUerName = selectSQL.select('userId')
   
   def getTime(self, config):
-    print('success link get time')    
+    # get time to select
+    print('success link get time')
+
+  def addInfo(self, config):
+    # user add info into list
+    print('success add info into list')
