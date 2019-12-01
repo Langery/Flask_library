@@ -1,4 +1,5 @@
 import json, config
+import logging
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from flask_cors import CORS
 from DBUtils.PersistentDB import PersistentDB
@@ -20,6 +21,16 @@ SQLConfig = config.SQLConfig
 getPool = POOL()
 config = getPool.config(SQLConfig)
 print(config)
+
+# 错误日志处理
+# 1. 配置
+handler = logging.FileHandler('app.log', encoding='UTF-8')
+# 2. 设置日志文件
+logging_format = logging.Formatter(
+  '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s'
+)
+handler.setFormatter(logging_format)
+app.logger.addHandler(handler)
 
 # 测试接口
 @app.route('/first', methods=['GET'])
