@@ -9,6 +9,7 @@ yarn-error.log*
 selenium-debug.log
 __pycache__/
 userPwd.py
+app.log
 
 # Editor directories and files
 .idea

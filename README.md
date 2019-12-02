@@ -79,6 +79,12 @@
 ``` sql
   DELETE FROM tablename WHERE NAME = 'abc'
 ```
+2. 查询
+``` sql
+  SELECT columnname FROM tablename
+  -- 通过 username 找 id
+  SELECT id FROM tablename WHERE username = 'xxx'
+```
 
 ### Links:
 

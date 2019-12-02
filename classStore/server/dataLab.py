@@ -29,7 +29,7 @@ class SQLFun():
   def select(self, selectway):
     way = self.way
     lab = self.lab
-    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + ' =%s'
+    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '=%s'
   def add(self, *key):
     print(key)
     print(type(key))
