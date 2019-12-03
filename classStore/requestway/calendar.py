@@ -24,18 +24,31 @@ class Calendar():
     conn.commit()
     if hadUserId < 1:
       # 当前用户不存在
-      return False
+      msg = '当前用户不存在'
+      backSend = {}
+      backSend['msg'] = msg
+      backSend['status'] = 0
+      return json.dumps(backSend, ensure_ascii=False)
     else:
       # find id by username
       tableSQL = SQLFun('id', 'dbusers')
       sqlUserId = tableSQL.select('name')
-      print(sqlUserId)
-      # getUserId = cursor.execute(sqlUserId, username)
-      # print(getUserId)
+      cursor.execute(sqlUserId, username)
       getRetData = cursor.fetchall()
-      print(getRetData)
-      print(getRetData[0][0])
-
+      getUserId = getRetData[0][0]
+      # 通过 ID 去事件表查是否有数据
+      eventSQL = SQLFun('event', 'event')
+      sqlEvent = eventSQL.select('userId')
+      cursor.execute(sqlEvent, getUserId)
+      getEventData = cursor.fetchall()
+      print(getEventData)
+      backArr = {
+        'msg': getEventData[0][0]
+      }
+      backEventData = {}
+      backEventData['data'] = backArr
+      backEventData['status'] = '200'
+      return json.dumps(backEventData, ensure_ascii=False)
     # select SQL
     # calSQL = SQLFun('*', 'event')
     # sqlUerName = selectSQL.select('userId')

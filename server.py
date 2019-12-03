@@ -45,6 +45,10 @@ def first():
   print(first)
   return first
 
+@app.errorhandler(404)
+def page_not_found(error):
+  return 'This page does not exist', 404
+
 '''
 POST way to save data
 '''
@@ -69,7 +73,7 @@ def getUser():
   cal = Calendar()
   getUser = cal.getUser(config)
   # app.logger.info(getUser)
-  return 'get user success'
+  return getUser
   # return getUser
 
 if __name__ == '__main__':
