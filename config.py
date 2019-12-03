@@ -2,6 +2,7 @@ from userPwd import Password
 
 class Config(object):
   DEBUG = True
+  TESTING = True
 
 class SQLConfig(object):
   host = '106.14.190.190'

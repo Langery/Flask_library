@@ -8,6 +8,6 @@ class First():
     name = request.args.get('name')
     print(name)
     if name:
-      print(name)
+      # print(name)
       res = make_response('Hello Ajax ' + name)
       return res
