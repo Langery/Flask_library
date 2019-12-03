@@ -30,11 +30,11 @@ class Calendar():
       tableSQL = SQLFun('id', 'dbusers')
       sqlUserId = tableSQL.select('name')
       print(sqlUserId)
-      # getUserId = cursor.execute(sqlUserId, [username])
-      result = cursor.fetchall()
-      print(result)
-      print('getUserId:')
+      # getUserId = cursor.execute(sqlUserId, username)
       # print(getUserId)
+      getRetData = cursor.fetchall()
+      print(getRetData)
+      print(getRetData[0][0])
 
     # select SQL
     # calSQL = SQLFun('*', 'event')
