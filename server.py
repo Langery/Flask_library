@@ -4,6 +4,11 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 from flask_cors import CORS
 from DBUtils.PersistentDB import PersistentDB
 
+# Blueprint
+# from flask import Blueprint
+# main = Blueprint('main', __name__)
+# @main.route()
+
 # import
 from classStore.requestway.first import First # 测试接口
 from classStore.requestway.login import Login
@@ -24,7 +29,7 @@ print(config)
 
 # 错误日志处理
 # 1. 配置
-handler = logging.FileHandler('app.log', encoding='UTF-8')
+handler = logging.FileHandler('log/app.log', encoding='UTF-8')
 # 2. 设置日志文件
 logging_format = logging.Formatter(
   '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s'
@@ -47,20 +52,23 @@ POST way to save data
 def login():
   res = Login()
   select = res.select(config)
-  print(select)
+  # print(select)
+  app.logger.info(select)
   return select
 
 @app.route('/register', methods=['POST'])
 def register():
   reg = Register()
   findHad = reg.findHad(config)
-  print(findHad)
+  # print(findHad)
+  app.logger.info(findHad)
   return findHad
 
 @app.route('/canlendar', methods=['POST'])
 def getUser():
   cal = Calendar()
   getUser = cal.getUser(config)
+  app.logger.info(getUser)
   return 'get user success'
   # return getUser
 

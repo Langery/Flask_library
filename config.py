@@ -10,3 +10,13 @@ class SQLConfig(object):
   user = Password.user
   password = Password.password
   database = Password.database
+
+class TestConfig(object):
+  TESTING = True
+
+config = {
+  'development': '',
+  'testing': TestConfig,
+  'production': '',
+  'sqlLink': SQLConfig
+}
