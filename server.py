@@ -53,7 +53,7 @@ def login():
   res = Login()
   select = res.select(config)
   # print(select)
-  app.logger.info(select)
+  # app.logger.info(select)
   return select
 
 @app.route('/register', methods=['POST'])
@@ -61,14 +61,14 @@ def register():
   reg = Register()
   findHad = reg.findHad(config)
   # print(findHad)
-  app.logger.info(findHad)
+  # app.logger.info(findHad)
   return findHad
 
 @app.route('/canlendar', methods=['POST'])
 def getUser():
   cal = Calendar()
   getUser = cal.getUser(config)
-  app.logger.info(getUser)
+  # app.logger.info(getUser)
   return 'get user success'
   # return getUser
 
