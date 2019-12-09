@@ -30,6 +30,7 @@
 - [ ] 待续...
 
 > advice
+
 - [ ] flask 配置文件
   - [x] 数据库链接写成方法
 - [x] Connection 静态变量
