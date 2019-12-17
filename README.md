@@ -57,6 +57,7 @@
   - [ ] 模块测试
 - [ ] 数据收集以及数据分析
 - [ ] 用户数据分析处理
+- [ ] 模糊查询
 - [ ] 待续...
 
 > finished
@@ -114,3 +115,10 @@
 5. [flask配置文件](https://www.jianshu.com/p/6b9a77f1c0cf)
 6. [Deleting a Git commit](https://www.jianshu.com/p/073acdc79c7b)
 7. [flask项目结构（三）使用蓝图](https://www.cnblogs.com/jackadam/p/8684148.html)
+
+### change log
+
+> 2019-12-17
+
+1. 修改 data 处理位置，传给指定函数为 data 整体，在指定函数内做对应参数的获取和处理
+2. 增加日志事件获取事件（待完成）

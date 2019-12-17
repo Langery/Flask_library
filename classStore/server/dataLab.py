@@ -48,3 +48,7 @@ class SQLFun():
     print(valueS)
     print('INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')')
     return 'INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')'
+  def like(self, selectway):
+    way = self.way
+    lab = self.lab
+    return "SELECT " + way + " FROM " + lab + " WHERE " + selectway + " LIKE '=%s%'"

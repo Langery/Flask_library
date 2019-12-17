@@ -6,12 +6,11 @@ class Calendar():
   def __init__(self):
     print('sucess user calendar')
     data = request.get_data()
-    username = json.loads(data)['username']
-    print(username)
-    self.username = username
+    self.data = data
   def getUser(self, config):
     print('success get user')
-    username = self.username
+    # username = self.username
+    username = json.loads(self.data)['username']
     conn = config.connection()
     cursor = conn.cursor()
     # find user id SQL
@@ -52,7 +51,22 @@ class Calendar():
     # select SQL
     # calSQL = SQLFun('*', 'event')
     # sqlUerName = selectSQL.select('userId')
-  
+
+  def getList(self, config):
+    print('get list info')
+    # sendtime = self.sendtime
+    sendtime = json.loads(self.data)['time']
+    conn = config.connection()
+    cursor = conn.cursor()
+    ListSQL = SQLFun('*', 'event')
+    sqlEventTime = ListSQL.like('isNew')
+    print('sqlEventTime:' + sqlEventTime)
+    # cursor.execute(sqlEventTime, [sendtime])
+    # SELECT * FROM event WHERE isNew LIKE '2019-12%'
+    # EventSel = cursor.fetchall()
+    # print(EventSel)
+    # conn.commit()
+
   def getTime(self, config):
     # get time to select
     print('success link get time')

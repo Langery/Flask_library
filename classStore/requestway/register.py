@@ -6,28 +6,22 @@ class Register():
   def __init__(self):
     print('success use register')
     data = request.get_data()
-    username = json.loads(data)['username']
-    password = json.loads(data)['password']
-    nickname = json.loads(data)['nickname']
-    print(username, password, nickname)
-    self.username = username
-    self.password = password
-    self.nickname = nickname
+    self.data = data
   def findHad(self, config):
-    username = self.username
-    nickname = self.nickname
-    password = self.password
+    username = json.loads(self.data)['username']
+    nickname = json.loads(self.data)['nickname']
+    password = json.loads(self.data)['password']
     conn = config.connection()
     cursor = conn.cursor()
     # find in SQL
     regSQL = SQLFun('*', 'dbusers')
-    
+
     sqlUser = regSQL.select('name')
     sqlNick = regSQL.select('nickname')
 
     rowUser = cursor.execute(sqlUser, [username])
     rowNick = cursor.execute(sqlNick, [nickname])
-    
+
     print(rowUser, rowNick)
     conn.commit()
     if rowUser >= 1:

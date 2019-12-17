@@ -76,5 +76,13 @@ def getUser():
   return getUser
   # return getUser
 
+# get show list
+@app.route('/canlendar/list', methods=['POST'])
+def getShowList():
+  cal = Calendar()
+  getShowList = cal.getList(config)
+  # 
+  return 'calendar get success'
+
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)

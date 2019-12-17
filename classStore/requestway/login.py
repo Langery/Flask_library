@@ -6,19 +6,15 @@ class Login():
   def __init__(self):
     print('success use login')
     data = request.get_data()
-    username = json.loads(data)['username']
-    password = json.loads(data)['password']
-    print(username, password)
-    self.username = username
-    self.password = password
+    self.data = data
   def select(self, config):
-    username = self.username
-    password = self.password
+    username = json.loads(self.data)['username']
+    password = json.loads(self.data)['password']
     conn = config.connection()
     cursor = conn.cursor()
     # select
     loginSQL = SQLFun('*', 'dbusers')
-    sqlName = loginSQL.select('name')
+    sqlName = loginSQL.select('nickname')
     sqlPwd = loginSQL.select('pwd')
     rowName = cursor.execute(sqlName,[username])
     rowPws = cursor.execute(sqlPwd,[password])
