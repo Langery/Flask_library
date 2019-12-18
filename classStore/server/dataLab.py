@@ -51,4 +51,5 @@ class SQLFun():
   def like(self, selectway):
     way = self.way
     lab = self.lab
-    return "SELECT " + way + " FROM " + lab + " WHERE " + selectway + " LIKE '=%s%'"
+    changeMonth = '%'
+    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + ' LIKE ' + '"' + '%s'%changeMonth + '"'

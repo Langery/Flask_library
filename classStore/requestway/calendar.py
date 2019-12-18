@@ -61,11 +61,13 @@ class Calendar():
     ListSQL = SQLFun('*', 'event')
     sqlEventTime = ListSQL.like('isNew')
     print('sqlEventTime:' + sqlEventTime)
-    # cursor.execute(sqlEventTime, [sendtime])
+    cursor.execute(sqlEventTime, sendtime)
     # SELECT * FROM event WHERE isNew LIKE '2019-12%'
-    # EventSel = cursor.fetchall()
-    # print(EventSel)
-    # conn.commit()
+    EventSel = cursor.fetchall()
+    print(EventSel)
+    print(type(EventSel))
+    # print('EventSel' + EventSel)
+    conn.commit()
 
   def getTime(self, config):
     # get time to select
