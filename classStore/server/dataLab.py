@@ -48,8 +48,9 @@ class SQLFun():
     print(valueS)
     print('INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')')
     return 'INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')'
-  def like(self, selectway):
+  def like(self, selectway, obj_param):
     way = self.way
     lab = self.lab
-    changeMonth = '%'
-    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + ' LIKE ' + '"' + '%s'%changeMonth + '"'
+    # 'SELECT {} FROM {} WHERE {} LIKE {}%'.format(way, lab, selectway)
+    # return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + ' LIKE ' + '("% %s %")'
+    return '''SELECT {} FROM {} WHERE {} LIKE "{}%"'''.format(way, lab, selectway, obj_param)

@@ -59,15 +59,27 @@ class Calendar():
     conn = config.connection()
     cursor = conn.cursor()
     ListSQL = SQLFun('*', 'event')
-    sqlEventTime = ListSQL.like('isNew')
+    sqlEventTime = ListSQL.like('isNew', sendtime)
     print('sqlEventTime:' + sqlEventTime)
-    cursor.execute(sqlEventTime, sendtime)
+    # cursor.execute(sqlEventTime, [sendtime])
+    cursor.execute(sqlEventTime)
     # SELECT * FROM event WHERE isNew LIKE '2019-12%'
     EventSel = cursor.fetchall()
     print(EventSel)
     print(type(EventSel))
-    # print('EventSel' + EventSel)
     conn.commit()
+    backInfo = []
+    for eventOne in EventSel:
+      newObj = {
+        'userId': eventOne[1],
+        'event': eventOne[2],
+        'createtime': eventOne[3],
+        'status': eventOne[6],
+        'newtime': eventOne[7],
+      }
+      backInfo.append(newObj)
+    return json.dumps(backInfo, ensure_ascii=False)
+
 
   def getTime(self, config):
     # get time to select
