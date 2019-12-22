@@ -1,6 +1,7 @@
 from flask import request, make_response
 import json
 from classStore.server.dataLab import SQLFun
+from classStore.server.dataLab import POOL
 
 class Calendar():
   def __init__(self):
@@ -48,9 +49,9 @@ class Calendar():
       backEventData['data'] = backArr
       backEventData['status'] = '200'
       return json.dumps(backEventData, ensure_ascii=False)
-    # select SQL
-    # calSQL = SQLFun('*', 'event')
-    # sqlUerName = selectSQL.select('userId')
+      # select SQL
+      # calSQL = SQLFun('*', 'event')
+      # sqlUerName = selectSQL.select('userId')
 
   def getList(self, config):
     print('get list info')
