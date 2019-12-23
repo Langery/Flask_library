@@ -72,7 +72,7 @@ class Calendar():
     backInfo = []
     for eventOne in EventSel:
       newObj = {
-        'userId': eventOne[1],
+        'userId': self.getName(cursor, eventOne[1]),
         'event': eventOne[2],
         'createtime': eventOne[3],
         'status': eventOne[6],
@@ -80,6 +80,13 @@ class Calendar():
       }
       backInfo.append(newObj)
     return json.dumps(backInfo, ensure_ascii=False)
+
+  def getName(self, cursor, data):
+    userSQL = SQLFun('nickname', 'dbusers')
+    sqlUserName = userSQL.select('id')
+    cursor.execute(sqlUserName, [data])
+    NameSel = cursor.fetchall()
+    return NameSel[0][0]
 
 
   def getTime(self, config):
