@@ -16,8 +16,8 @@ class Login():
     loginSQL = SQLFun('*', 'dbusers')
     sqlName = loginSQL.select('nickname')
     sqlPwd = loginSQL.select('pwd')
-    rowName = cursor.execute(sqlName, [username])
-    rowPws = cursor.execute(sqlPwd, [password])
+    rowName = cursor.execute(sqlName, username)
+    rowPws = cursor.execute(sqlPwd, password)
     print(rowName, rowPws)
     conn.commit()
     # conn.close() # false closure

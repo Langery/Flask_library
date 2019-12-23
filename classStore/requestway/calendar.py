@@ -1,7 +1,6 @@
 from flask import request, make_response
 import json
 from classStore.server.dataLab import SQLFun
-from classStore.server.dataLab import POOL
 
 class Calendar():
   def __init__(self):
@@ -17,10 +16,8 @@ class Calendar():
     # find user id SQL
     selectSQL = SQLFun('*', 'dbusers')
     # get user id
-    sqlUserName = selectSQL.select('name')
-    print('sqlUserName:' + sqlUserName)
-    hadUserId = cursor.execute(sqlUserName, [username])
-    print(hadUserId)
+    sqlUserName = selectSQL.select('nickname')
+    hadUserId = cursor.execute(sqlUserName, username)
     conn.commit()
     if hadUserId < 1:
       # 当前用户不存在
@@ -32,7 +29,7 @@ class Calendar():
     else:
       # find id by username
       tableSQL = SQLFun('id', 'dbusers')
-      sqlUserId = tableSQL.select('name')
+      sqlUserId = tableSQL.select('nickname')
       cursor.execute(sqlUserId, username)
       getRetData = cursor.fetchall()
       getUserId = getRetData[0][0]
@@ -41,7 +38,6 @@ class Calendar():
       sqlEvent = eventSQL.select('userId')
       cursor.execute(sqlEvent, getUserId)
       getEventData = cursor.fetchall()
-      print(getEventData)
       backArr = {
         'msg': getEventData[0][0]
       }
@@ -84,10 +80,9 @@ class Calendar():
   def getName(self, cursor, data):
     userSQL = SQLFun('nickname', 'dbusers')
     sqlUserName = userSQL.select('id')
-    cursor.execute(sqlUserName, [data])
+    cursor.execute(sqlUserName, data)
     NameSel = cursor.fetchall()
     return NameSel[0][0]
-
 
   def getTime(self, config):
     # get time to select

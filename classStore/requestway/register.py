@@ -19,8 +19,8 @@ class Register():
     sqlUser = regSQL.select('name')
     sqlNick = regSQL.select('nickname')
 
-    rowUser = cursor.execute(sqlUser, [username])
-    rowNick = cursor.execute(sqlNick, [nickname])
+    rowUser = cursor.execute(sqlUser, username)
+    rowNick = cursor.execute(sqlNick, nickname)
 
     print(rowUser, rowNick)
     conn.commit()
@@ -28,6 +28,7 @@ class Register():
       nameData = True
     else:
       nameData = False
+
     if rowNick >= 1:
       nickData = True
     else:

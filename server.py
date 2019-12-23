@@ -56,7 +56,6 @@ POST way to save data
 def login():
   res = Login()
   select = res.select(config)
-  # print(select)
   # app.logger.info(select)
   return select
 
@@ -64,11 +63,10 @@ def login():
 def register():
   reg = Register()
   findHad = reg.findHad(config)
-  # print(findHad)
   # app.logger.info(findHad)
   return findHad
 
-@app.route('/canlendar', methods=['POST'])
+@app.route('/canlendar/user', methods=['POST'])
 def getUser():
   cal = Calendar()
   getUser = cal.getUser(config)
@@ -81,8 +79,6 @@ def getUser():
 def getShowList():
   cal = Calendar()
   getShowList = cal.getList(config)
-  print(getShowList)
-  # return 'calendar get success'
   return getShowList
 
 if __name__ == '__main__':

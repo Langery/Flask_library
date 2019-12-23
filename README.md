@@ -15,6 +15,7 @@
   - [ ] put
   - [x] post
   - [ ] delete
+- [ ] ORM 数据处理
 - [x] 连接到数据库
   - [x] 数据校验
   - [ ] 数据库做表链接
@@ -118,7 +119,7 @@
 6. [Deleting a Git commit](https://www.jianshu.com/p/073acdc79c7b)
 7. [flask项目结构（三）使用蓝图](https://www.cnblogs.com/jackadam/p/8684148.html)
 
-### change log
+### Change Log
 
 > 2019-12-17
 
