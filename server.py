@@ -17,7 +17,12 @@ from classStore.requestway.calendar import Calendar
 # data lab
 from classStore.server.dataLab import POOL
 
+# import blueprint
+from blueprint.admin.adminview import *
+from blueprint.user.userview import *
+
 app = Flask(__name__)
+
 CORS(app, supports_credentials=True)
 
 app.config.from_object(config.Config)
@@ -26,6 +31,9 @@ SQLConfig = config.SQLConfig
 getPool = POOL()
 config = getPool.config(SQLConfig)
 print(config)
+
+app.register_blueprint(admin_blue, url_prefix='/admin')
+app.register_blueprint(user_blue, url_prefix="/user")
 
 # 错误日志处理
 # 1. 配置
@@ -47,7 +55,7 @@ def first():
 
 @app.errorhandler(404)
 def page_not_found(error):
-  return 'This page does not exist', 404
+  return 'This address does not exist', 404
 
 '''
 POST way to save data

@@ -44,9 +44,6 @@ class Calendar():
       backEventData['data'] = backArr
       backEventData['status'] = '200'
       return json.dumps(backEventData, ensure_ascii=False)
-      # select SQL
-      # calSQL = SQLFun('*', 'event')
-      # sqlUerName = selectSQL.select('userId')
 
   def getList(self, config):
     print('get list info')
@@ -55,13 +52,10 @@ class Calendar():
     cursor = conn.cursor()
     ListSQL = SQLFun('*', 'event')
     sqlEventTime = ListSQL.like('isNew', sendtime)
-    # print('sqlEventTime:' + sqlEventTime)
     # cursor.execute(sqlEventTime, [sendtime])
     cursor.execute(sqlEventTime)
     # SELECT * FROM event WHERE isNew LIKE '2019-12%'
     EventSel = cursor.fetchall()
-    # print(EventSel)
-    # print(type(EventSel))
     conn.commit()
     backInfo = []
     for eventOne in EventSel:
