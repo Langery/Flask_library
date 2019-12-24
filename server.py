@@ -4,11 +4,6 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 from flask_cors import CORS
 from DBUtils.PersistentDB import PersistentDB
 
-# Blueprint
-# from flask import Blueprint
-# main = Blueprint('main', __name__)
-# @main.route()
-
 # import
 from classStore.requestway.first import First # 测试接口
 from classStore.requestway.login import Login
@@ -18,8 +13,8 @@ from classStore.requestway.calendar import Calendar
 from classStore.server.dataLab import POOL
 
 # import blueprint
-from blueprint.admin.adminview import *
-from blueprint.user.userview import *
+from blueprintStore.admin.adminview import *
+from blueprintStore.user.userview import *
 
 app = Flask(__name__)
 
@@ -32,6 +27,7 @@ getPool = POOL()
 config = getPool.config(SQLConfig)
 print(config)
 
+# Blueprint
 app.register_blueprint(admin_blue, url_prefix='/admin')
 app.register_blueprint(user_blue, url_prefix="/user")
 
