@@ -9,7 +9,6 @@ class Calendar():
     self.data = data
   def getUser(self, config):
     print('success get user')
-    # username = self.username
     username = json.loads(self.data)['username']
     conn = config.connection()
     cursor = conn.cursor()
@@ -51,19 +50,18 @@ class Calendar():
 
   def getList(self, config):
     print('get list info')
-    # sendtime = self.sendtime
     sendtime = json.loads(self.data)['time']
     conn = config.connection()
     cursor = conn.cursor()
     ListSQL = SQLFun('*', 'event')
     sqlEventTime = ListSQL.like('isNew', sendtime)
-    print('sqlEventTime:' + sqlEventTime)
+    # print('sqlEventTime:' + sqlEventTime)
     # cursor.execute(sqlEventTime, [sendtime])
     cursor.execute(sqlEventTime)
     # SELECT * FROM event WHERE isNew LIKE '2019-12%'
     EventSel = cursor.fetchall()
-    print(EventSel)
-    print(type(EventSel))
+    # print(EventSel)
+    # print(type(EventSel))
     conn.commit()
     backInfo = []
     for eventOne in EventSel:
@@ -84,10 +82,12 @@ class Calendar():
     NameSel = cursor.fetchall()
     return NameSel[0][0]
 
+  # Not for the time being
   def getTime(self, config):
     # get time to select
     print('success link get time')
 
   def addInfo(self, config):
+    # nickname, create time, info
     # user add info into list
     print('success add info into list')

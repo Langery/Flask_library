@@ -72,7 +72,6 @@ def getUser():
   getUser = cal.getUser(config)
   # app.logger.info(getUser)
   return getUser
-  # return getUser
 
 # get show list
 @app.route('/canlendar/list', methods=['POST'])

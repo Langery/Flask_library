@@ -22,7 +22,7 @@ class Register():
     rowUser = cursor.execute(sqlUser, username)
     rowNick = cursor.execute(sqlNick, nickname)
 
-    print(rowUser, rowNick)
+    # print(rowUser, rowNick)
     conn.commit()
     if rowUser >= 1:
       nameData = True
@@ -42,9 +42,9 @@ class Register():
       return json.dumps(res)
     else:
       addUser = regSQL.add('name', 'pwd', 'nickname')
-      print(addUser)
+      # print(addUser)
       rowAdd = cursor.execute(addUser, [username, password, nickname])
-      print(rowAdd)
+      # print(rowAdd)
       conn.commit()
       if rowAdd >= 1:
         addData = True
