@@ -8,9 +8,10 @@ class Register():
     data = request.get_data()
     self.data = data
   def findHad(self, config):
-    username = json.loads(self.data)['username']
-    nickname = json.loads(self.data)['nickname']
-    password = json.loads(self.data)['password']
+    data = json.loads(self.data)
+    username = data['username']
+    nickname = data['nickname']
+    password = data['password']
     conn = config.connection()
     cursor = conn.cursor()
     # find in SQL
@@ -38,7 +39,7 @@ class Register():
       # res['username'] = nameData
       # res['nickname'] = nickData
       res['backData'] = False
-      print(res)
+      # print(res)
       return json.dumps(res)
     else:
       addUser = regSQL.add('name', 'pwd', 'nickname')

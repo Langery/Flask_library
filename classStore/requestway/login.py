@@ -8,8 +8,9 @@ class Login():
     data = request.get_data()
     self.data = data
   def select(self, config):
-    username = json.loads(self.data)['username']
-    password = json.loads(self.data)['password']
+    data = json.loads(self.data)
+    username = data['username']
+    password = data['password']
     conn = config.connection()
     cursor = conn.cursor()
     # select

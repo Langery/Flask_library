@@ -47,7 +47,8 @@ class Calendar():
 
   def getList(self, config):
     print('get list info')
-    sendtime = json.loads(self.data)['time']
+    data = json.loads(self.data)
+    sendtime = data['time']
     conn = config.connection()
     cursor = conn.cursor()
     ListSQL = SQLFun('*', 'event')
@@ -58,6 +59,7 @@ class Calendar():
     EventSel = cursor.fetchall()
     conn.commit()
     backInfo = []
+    # 待修改
     for eventOne in EventSel:
       newObj = {
         'userId': self.getName(cursor, eventOne[1]),
@@ -83,5 +85,28 @@ class Calendar():
 
   def addInfo(self, config):
     # nickname, create time, info
+    '''
+      data = {
+        userId: ''
+        time: '',
+        username: '',
+        info: '',
+        status: ''
+      }
+    '''
+    data = json.loads(self.data)
+    userId = data['userId']
+    createtime = data['time']
+    username = data['username']
+    status = data['status']
+    info = data['info']
+    conn = config.connection()
+    cursor = conn.cursor()
+    addSQL = SQLFun('*', 'event')
+    sqlInfoAdd = addSQL.add('userId', 'event', 'createTime', 'updaeTime', 'deleteTime', 'status', 'isNew')
+    rowAddInfo = cursor.execute(userId, info, createtime, '-1', '-1', status, createTime)
+    print(rowAddInfo)
+    newShowInfo = cursor.fetchall()
+    print(newShowInfo)
     # user add info into list
     print('success add info into list')

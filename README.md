@@ -116,6 +116,15 @@
   -- 通过 username 找 id
   SELECT id FROM tablename WHERE username = 'xxx'
 ```
+3. 添加
+``` sql
+  INSERT INTO tablename VALUES (value)
+  INSERT INTO tablename (columnname...) VALUES (value...)
+```
+4. 修改
+```sql
+  UPDATE tablename SET columnname = 'newValue' WHERE columnvalue = 'xxx'
+```
 
 ### Links:
 
@@ -152,3 +161,6 @@
 > 2019-12-24
 
 1. 添加蓝图模块，还未细化蓝图内部功能，待开发...
+2. 增加添加查询模块
+3. common 的思考
+4. 待修改获取日历信息的返回数据

@@ -28,8 +28,8 @@ config = getPool.config(SQLConfig)
 print(config)
 
 # Blueprint
-app.register_blueprint(admin_blue, url_prefix='/admin')
-app.register_blueprint(user_blue, url_prefix="/user")
+app.register_blueprint(admin_blue, url_prefix = '/admin')
+app.register_blueprint(user_blue, url_prefix = "/user")
 
 # 错误日志处理
 # 1. 配置
@@ -83,6 +83,12 @@ def getShowList():
   cal = Calendar()
   getShowList = cal.getList(config)
   return getShowList
+
+@app.route('/canlendar/addInfo', methods=['POST'])
+def addInfo():
+  cal = Calendar()
+  addInfo = cal.addInfo(config)
+  return addInfo
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
