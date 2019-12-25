@@ -8,7 +8,6 @@ from DBUtils.PersistentDB import PersistentDB
 from classStore.requestway.first import First # 测试接口
 from classStore.requestway.login import Login
 from classStore.requestway.register import Register
-# from classStore.requestway.calendar import Calendar
 # data lab
 from classStore.server.dataLab import POOL
 
@@ -71,26 +70,6 @@ def register():
   findHad = reg.findHad(config)
   # app.logger.info(findHad)
   return findHad
-
-# @app.route('/calendar/user', methods=['POST'])
-# def getUser():
-#   cal = Calendar()
-#   getUser = cal.getUser(config)
-#   # app.logger.info(getUser)
-#   return getUser
-#
-# # get show list
-# @app.route('/calendar/list', methods=['POST'])
-# def getShowList():
-#   cal = Calendar()
-#   getShowList = cal.getList(config)
-#   return getShowList
-#
-# @app.route('/calendar/addInfo', methods=['POST'])
-# def addInfo():
-#   cal = Calendar()
-#   addInfo = cal.addInfo(config)
-#   return addInfo
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)

@@ -23,7 +23,6 @@ class POOL():
 
 class SQLFun():
   def __init__(self, way, lab):
-    print('sql way')
     self.way = way
     self.lab = lab
   def select(self, selectway):
@@ -31,7 +30,6 @@ class SQLFun():
     lab = self.lab
     return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '=%s'
   def add(self, *key):
-
     lab = self.lab
     valueS = ''
     keyS = ''
