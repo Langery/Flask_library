@@ -15,7 +15,7 @@ from classStore.server.dataLab import POOL
 # import blueprint
 from blueprintStore.admin.adminview import *
 from blueprintStore.user.userview import *
-from blueprintStore.canlendar.canlendarview import *
+from blueprintStore.calendar.calendarview import *
 
 app = Flask(__name__)
 
@@ -31,7 +31,7 @@ print(config)
 # Blueprint
 app.register_blueprint(admin_blue, url_prefix = '/admin')
 app.register_blueprint(user_blue, url_prefix = "/user")
-app.register_blueprint(canlendar_blue, url_prefix="/canlendar")
+app.register_blueprint(calendar_blue, url_prefix="/calendar")
 
 # 错误日志处理
 # 1. 配置
@@ -72,7 +72,7 @@ def register():
   # app.logger.info(findHad)
   return findHad
 
-# @app.route('/canlendar/user', methods=['POST'])
+# @app.route('/calendar/user', methods=['POST'])
 # def getUser():
 #   cal = Calendar()
 #   getUser = cal.getUser(config)
@@ -80,13 +80,13 @@ def register():
 #   return getUser
 #
 # # get show list
-# @app.route('/canlendar/list', methods=['POST'])
+# @app.route('/calendar/list', methods=['POST'])
 # def getShowList():
 #   cal = Calendar()
 #   getShowList = cal.getList(config)
 #   return getShowList
 #
-# @app.route('/canlendar/addInfo', methods=['POST'])
+# @app.route('/calendar/addInfo', methods=['POST'])
 # def addInfo():
 #   cal = Calendar()
 #   addInfo = cal.addInfo(config)
