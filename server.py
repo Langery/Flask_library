@@ -8,13 +8,14 @@ from DBUtils.PersistentDB import PersistentDB
 from classStore.requestway.first import First # 测试接口
 from classStore.requestway.login import Login
 from classStore.requestway.register import Register
-from classStore.requestway.calendar import Calendar
+# from classStore.requestway.calendar import Calendar
 # data lab
 from classStore.server.dataLab import POOL
 
 # import blueprint
 from blueprintStore.admin.adminview import *
 from blueprintStore.user.userview import *
+from blueprintStore.canlendar.canlendarview import *
 
 app = Flask(__name__)
 
@@ -30,6 +31,7 @@ print(config)
 # Blueprint
 app.register_blueprint(admin_blue, url_prefix = '/admin')
 app.register_blueprint(user_blue, url_prefix = "/user")
+app.register_blueprint(canlendar_blue, url_prefix="/canlendar")
 
 # 错误日志处理
 # 1. 配置
@@ -70,25 +72,25 @@ def register():
   # app.logger.info(findHad)
   return findHad
 
-@app.route('/canlendar/user', methods=['POST'])
-def getUser():
-  cal = Calendar()
-  getUser = cal.getUser(config)
-  # app.logger.info(getUser)
-  return getUser
-
-# get show list
-@app.route('/canlendar/list', methods=['POST'])
-def getShowList():
-  cal = Calendar()
-  getShowList = cal.getList(config)
-  return getShowList
-
-@app.route('/canlendar/addInfo', methods=['POST'])
-def addInfo():
-  cal = Calendar()
-  addInfo = cal.addInfo(config)
-  return addInfo
+# @app.route('/canlendar/user', methods=['POST'])
+# def getUser():
+#   cal = Calendar()
+#   getUser = cal.getUser(config)
+#   # app.logger.info(getUser)
+#   return getUser
+#
+# # get show list
+# @app.route('/canlendar/list', methods=['POST'])
+# def getShowList():
+#   cal = Calendar()
+#   getShowList = cal.getList(config)
+#   return getShowList
+#
+# @app.route('/canlendar/addInfo', methods=['POST'])
+# def addInfo():
+#   cal = Calendar()
+#   addInfo = cal.addInfo(config)
+#   return addInfo
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
