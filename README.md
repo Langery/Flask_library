@@ -1,5 +1,8 @@
 ## Flask_library
 
+![](https://img.shields.io/badge/Language-Flask-green)
+[![](https://img.shields.io/bitbucket/issues-raw/Langery/Flask_library)](https://github.com/Langery/Flask_library/issues)
+
 > 启动
 
 ``` python
@@ -7,6 +10,10 @@
 ```
 
 ### Flask 后台库
+
+> 项目说明
+
+&emsp;&emsp;暂无~
 
 > idea
 
@@ -74,7 +81,8 @@
 - [ ] 打包/发版
 - [x] 错误日志输出
   - [x] 错误日志配置
-  - [x] 错误日志输出
+  - [ ] 错误日志输出
+  - [ ] 错误日志归档 & 定期分类
 - [ ] 测试
   - [ ] 单元测试
   - [ ] 本地测试
