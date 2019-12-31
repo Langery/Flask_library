@@ -12,18 +12,20 @@ app_config = getPool.config(SQLConfig)
 
 @calendar_blue.route('/user', methods=['POST'])
 def getUser():
-  cal = Calendar()
-  getUser = cal.getUser(app_config)
-  return getUser
+    cal = Calendar()
+    getUserback = cal.getUser(app_config)
+    return getUserback
+
 
 @calendar_blue.route('/list', methods=['POST'])
 def getShowList():
-  cal = Calendar()
-  getShowList = cal.getList(app_config)
-  return getShowList
+    cal = Calendar()
+    getShowListback = cal.getList(app_config)
+    return getShowListback
+
 
 @calendar_blue.route('/addInfo', methods=['POST'])
 def addInfo():
-  cal = Calendar()
-  addInfo = cal.addInfo(app_config)
-  return addInfo
+    cal = Calendar()
+    addInfoback = cal.addInfo(app_config)
+    return addInfoback
