@@ -129,6 +129,7 @@
     - float  正浮点数
     - path  类似 string 但是包含斜杆
     - uuid UUID 字符串
+6. log Folder
 
 ### MySQL order
 
