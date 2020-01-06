@@ -162,6 +162,8 @@
 5. [flask配置文件](https://www.jianshu.com/p/6b9a77f1c0cf)
 6. [Deleting a Git commit](https://www.jianshu.com/p/073acdc79c7b)
 7. [flask项目结构（三）使用蓝图](https://www.cnblogs.com/jackadam/p/8684148.html)
+8. [flask SQLAlchemy模型属性和MySQL数据库数据类型对应关系](https://www.jianshu.com/p/0b23e197e7e0)
+9. [【Flask】Sqlalchemy 常用数据类型](https://www.cnblogs.com/chen0427/p/8627587.html)
 
 ### Change Log
 
@@ -196,3 +198,12 @@
 
 1. 处理蓝图里的 config 问题，解决日历接口的蓝图划分
 2. 导出数据库的设计表
+
+> 2020-01-04
+
+1. 重新设计数据库解构
+
+> 2020-01-06
+
+1. 完成多个参数查询拼接
+2. 创建测试文件—— demo.py

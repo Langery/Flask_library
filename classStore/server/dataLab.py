@@ -25,10 +25,25 @@ class SQLFun():
   def __init__(self, way, lab):
     self.way = way
     self.lab = lab
+    #TODO selectway 改成map  遍历数组生成SQL语句
   def select(self, selectway):
+  # def select(self, *key):
     way = self.way
     lab = self.lab
     return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '=%s'
+  # SELECT * FROM `event` WHERE userId = "" and createTime = 11 AND isNew = 1;
+  def selectMoreObj(self, *key):
+    lab = self.lab
+    way = self.way
+    newAdd = ''
+    for index, everyOne in enumerate(key):
+      newAdd += everyOne + '=%s and'
+
+    newAdd = newAdd[:-5]
+
+    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + newAdd
+
+
   def add(self, *key):
     lab = self.lab
     valueS = ''
@@ -45,3 +60,11 @@ class SQLFun():
     way = self.way
     lab = self.lab
     return '''SELECT {} FROM {} WHERE {} LIKE "{}%"'''.format(way, lab, selectway, obj_param)
+
+
+#插入数据 1 插入一条新的事件   id生成新的 eventId生成新的 isNew =1
+#          更新一个事件      b. id生成新的 eventId是不变的 isnew = 1
+#                          a. 跟新sql  把以前的 isnew = 1 的跟新成 0   参数 eventId， isnew=1
+#查询数据  查询某一天的  uid，date，isnew （status）   # TODO:
+#       查询某一个事件  eventId
+#
