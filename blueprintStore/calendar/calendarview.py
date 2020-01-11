@@ -16,7 +16,6 @@ def getUser():
     getUserback = cal.getUser(app_config)
     return getUserback
 
-
 @calendar_blue.route('/list', methods=['POST'])
 def getShowList():
     cal = Calendar()
