@@ -11,9 +11,9 @@
 
 ### Flask 后台库 Menu
 
-- <a href="#idea">idea</a>
-- <a href="#advice">advice</a>
-- <a href="#need-to-do">need to do</a>
+- <a href="#idea">Idea</a>
+- <a href="#advice">Advice</a>
+- <a href="#need-to-do">Need to do</a>
 - <a href="#finished">finished</a>
 - <a href="#notes">Notes</a>
 - <a href="#mysql-order">MySQL Order</a>
@@ -24,7 +24,7 @@
 
 &emsp;&emsp;暂无~
 
-> [idea](#idea)
+> [Idea](#idea)
 
 - [ ] 针对多种请求方式需要单独做处理
   - [ ] get
@@ -69,7 +69,7 @@
   - [ ] 用户数据分析处理
 - [ ] 待续...
 
-> [advice](#advice)
+> [Advice](#advice)
 
 - [ ] flask 配置文件
   - [x] 数据库链接写成方法
@@ -85,7 +85,7 @@
 - [ ] 多异步处理
 - [ ] 待续...
 
-> [need to do](#need-to-do)
+> [Need to do](#need-to-do)
 
 - [x] 创建总入口，然后通过总入口做请求下发
 - [ ] 登录注册
