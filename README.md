@@ -11,7 +11,6 @@
 
 ### Flask 后台库 Menu
 
-- <a href="#finished">finished</a>
 - <a href="#notes">Notes</a>
 - <a href="#mysql-order">MySQL Order</a>
 - <a href="#links">Links</a>
