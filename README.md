@@ -9,13 +9,22 @@
   python3 server.py
 ```
 
-### Flask 后台库
+### Flask 后台库 Menu
+
+- <a href="#idea">idea</a>
+- <a href="#advice">advice</a>
+- <a href="#need-to-do">need to do</a>
+- <a href="#finished">finished</a>
+- <a href="#notes">Notes</a>
+- <a href="#mysql-order">MySQL Order</a>
+- <a href="#links">Links</a>
+- <a href="#change-log">Change Log<a>
 
 > 项目说明
 
 &emsp;&emsp;暂无~
 
-> idea
+> [idea](#idea)
 
 - [ ] 针对多种请求方式需要单独做处理
   - [ ] get
@@ -60,7 +69,7 @@
   - [ ] 用户数据分析处理
 - [ ] 待续...
 
-> advice
+> [advice](#advice)
 
 - [ ] flask 配置文件
   - [x] 数据库链接写成方法
@@ -76,7 +85,7 @@
 - [ ] 多异步处理
 - [ ] 待续...
 
-> need to do
+> [need to do](#need-to-do)
 
 - [x] 创建总入口，然后通过总入口做请求下发
 - [ ] 登录注册
@@ -95,7 +104,7 @@
 - [x] 模糊查询
 - [ ] 待续...
 
-> finished
+> [finished](#finished)
 
 - [x] 实现前端对后台的链接和通讯
 - [x] 实现登录和注册接口
@@ -106,7 +115,7 @@
 - [x] 基础的模糊查询
 - [ ] 待续...
 
-### Notes
+### [Notes](#notes)
 
 1. 登录注册都为 POST 请求方式，传入格式为 json 格式
 2. Address already in use
@@ -131,7 +140,7 @@
     - uuid UUID 字符串
 6. log Folder
 
-### MySQL order
+### [MySQL order](#mysql-order)
 
 1. 删除一条数据
 ``` sql
@@ -155,7 +164,7 @@
   UPDATE tablename SET columnname = 'newValue' WHERE columnvalue = 'xxx'
 ```
 
-### Links:
+### [Links](#links):
 
 1. [Python Flask数据库连接池](https://www.cnblogs.com/supery007/p/8206442.html)
 2. [Python编程：flask-cors模块解决Flask跨域请求Cross-Origin问题](https://blog.csdn.net/mouday/article/details/85219076)
@@ -167,7 +176,7 @@
 8. [flask SQLAlchemy模型属性和MySQL数据库数据类型对应关系](https://www.jianshu.com/p/0b23e197e7e0)
 9. [【Flask】Sqlalchemy 常用数据类型](https://www.cnblogs.com/chen0427/p/8627587.html)
 
-### Change Log
+### [Change Log](#change-log)
 
 > 2019-12-17
 
