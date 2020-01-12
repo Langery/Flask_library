@@ -60,6 +60,15 @@ class SQLFun():
     way = self.way
     lab = self.lab
     return '''SELECT {} FROM {} WHERE {} LIKE "{}%"'''.format(way, lab, selectway, obj_param)
+  def select_timestamp(self, selectway, obj_param, new_param):
+    way = self.way
+    lab = self.lab
+    # obj_param = int(obj_param)
+    # new_param = obj_param + 2678400
+    # print(type(new_param))
+    # print(type(obj_param))
+    # print(obj_param + 2678400) # one mouthe later
+    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + str(obj_param) + ' < ' + selectway + ' < ' + str(new_param)
 
 
 #插入数据 1 插入一条新的事件   id生成新的 eventId生成新的 isNew =1

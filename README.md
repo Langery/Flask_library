@@ -142,6 +142,8 @@
   SELECT columnname FROM tablename
   -- 通过 username 找 id
   SELECT id FROM tablename WHERE username = 'xxx'
+  -- 查询一段时间的内容
+  SELECT * FROM tablename WHERE startNum < columnname < endNum
 ```
 3. 添加
 ``` sql
@@ -207,3 +209,7 @@
 
 1. 完成多个参数查询拼接
 2. 创建测试文件—— demo.py
+
+> 2020-01-12
+
+1. 完成时间段查询，重新定义新的数据请求
