@@ -67,7 +67,7 @@ class Calendar():
     # 待修改
     for eventOne in EventSel:
       newObj = {
-        'userId': self.getName(cursor, eventOne[1]),
+        'username': self.getName(cursor, eventOne[1]),
         'eventId': eventOne[2],
         'event': eventOne[3],
         'createtime': eventOne[4],
