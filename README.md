@@ -12,9 +12,7 @@
 ### Flask 后台库 Menu
 
 - <a href="#notes">Notes</a>
-- <a href="#mysql-order">MySQL Order</a>
 - <a href="#links">Links</a>
-- <a href="#change-log">Change Log<a>
 
 > 项目说明
 
@@ -98,6 +96,7 @@
   - [ ] 本地测试
   - [ ] 模块测试
 - [x] 模糊查询
+- [ ] 数据结构 & 算法
 - [ ] 待续...
 
 > finished
@@ -136,30 +135,6 @@
     - uuid UUID 字符串
 6. log Folder
 
-### [MySQL order](#mysql-order)
-
-1. 删除一条数据
-``` sql
-  DELETE FROM tablename WHERE NAME = 'abc'
-```
-2. 查询
-``` sql
-  SELECT columnname FROM tablename
-  -- 通过 username 找 id
-  SELECT id FROM tablename WHERE username = 'xxx'
-  -- 查询一段时间的内容
-  SELECT * FROM tablename WHERE startNum < columnname < endNum
-```
-3. 添加
-``` sql
-  INSERT INTO tablename VALUES (value)
-  INSERT INTO tablename (columnname...) VALUES (value...)
-```
-4. 修改
-```sql
-  UPDATE tablename SET columnname = 'newValue' WHERE columnvalue = 'xxx'
-```
-
 ### [Links](#links):
 
 1. [Python Flask数据库连接池](https://www.cnblogs.com/supery007/p/8206442.html)
@@ -171,50 +146,3 @@
 7. [flask项目结构（三）使用蓝图](https://www.cnblogs.com/jackadam/p/8684148.html)
 8. [flask SQLAlchemy模型属性和MySQL数据库数据类型对应关系](https://www.jianshu.com/p/0b23e197e7e0)
 9. [【Flask】Sqlalchemy 常用数据类型](https://www.cnblogs.com/chen0427/p/8627587.html)
-
-### [Change Log](#change-log)
-
-> 2019-12-17
-
-1. 修改 data 处理位置，传给指定函数为 data 整体，在指定函数内做对应参数的获取和处理
-2. 增加日志事件获取事件（待完成）
-
-> 2019-12-18
-
-1. 模糊查询未解决...问题存在于转义字符的处理...
-
-> 2019-12-20
-
-1. 解决模糊查询，已获取查询到的具体数据
-2. 目前数据格式不规范，待优化
-3. 目前用户信息只是 id，未拿到对应的用户名，待解决
-
-> 2019-12-23
-
-1. 解决通过用户 id 拿取到用户姓名
-2. 实现单独函数创建于调用，基于同一个 Class 下
-
-> 2019-12-24
-
-1. 添加蓝图模块，还未细化蓝图内部功能，待开发...
-2. 增加添加查询模块
-3. common 的思考
-4. 待修改获取日历信息的返回数据
-
-> 2019-12-25
-
-1. 处理蓝图里的 config 问题，解决日历接口的蓝图划分
-2. 导出数据库的设计表
-
-> 2020-01-04
-
-1. 重新设计数据库解构
-
-> 2020-01-06
-
-1. 完成多个参数查询拼接
-2. 创建测试文件—— demo.py
-
-> 2020-01-12
-
-1. 完成时间段查询，重新定义新的数据请求
