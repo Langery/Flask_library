@@ -1,5 +1,13 @@
 ## MySQL
 
+### 建表
+
+> 语法
+
+...
+
+### 语法
+
 1. 删除一条数据
 ``` sql
   DELETE FROM tablename WHERE NAME = 'abc'
