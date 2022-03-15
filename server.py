@@ -42,13 +42,14 @@ logging_format = logging.Formatter(
 handler.setFormatter(logging_format)
 app.logger.addHandler(handler)
 
-# 测试接口
+# 测试接口 =====================================================>
 @app.route('/first', methods=['GET'])
 def first():
   res = First()
   first = res.first()
   print(first)
   return first
+# 测试接口 =====================================================>
 
 @app.errorhandler(404)
 def page_not_found(error):

@@ -15,9 +15,10 @@ class Register():
     conn = config.connection()
     cursor = conn.cursor()
     # find in SQL
-    regSQL = SQLFun('*', 'dbusers')
+    # regSQL = SQLFun('*', 'dbusers')
+    regSQL = SQLFun('*', 'usertable')
 
-    sqlUser = regSQL.select('name')
+    sqlUser = regSQL.select('username')
     sqlNick = regSQL.select('nickname')
 
     rowUser = cursor.execute(sqlUser, username)
@@ -42,7 +43,7 @@ class Register():
       # print(res)
       return json.dumps(res)
     else:
-      addUser = regSQL.add('name', 'pwd', 'nickname')
+      addUser = regSQL.add('username', 'password', 'nickname')
       # print(addUser)
       rowAdd = cursor.execute(addUser, [username, password, nickname])
       # print(rowAdd)
