@@ -1,4 +1,4 @@
-## Flask_library [dev]
+## Flask_library
 
 ![](https://img.shields.io/badge/Language-Python-green)
 [![](https://img.shields.io/bitbucket/issues-raw/Langery/Flask_library)](https://github.com/Langery/Flask_library/issues)
