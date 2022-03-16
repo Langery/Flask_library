@@ -1,4 +1,6 @@
+from distutils.log import debug
 import json, config
+from pickle import TRUE
 import logging
 from flask import Flask, render_template, request, redirect, url_for, make_response
 from flask_cors import CORS
@@ -43,6 +45,7 @@ handler.setFormatter(logging_format)
 app.logger.addHandler(handler)
 
 # 测试接口
+# address: http://127.0.0.1:5000/first?name=xxx
 @app.route('/first', methods=['GET'])
 def first():
   res = First()
@@ -68,8 +71,14 @@ def login():
 def register():
   reg = Register()
   findHad = reg.findHad(config)
+  print(findHad)
+  print(type(findHad))
+  # objFind = json.loads(findHad)
+  # print(objFind)
+  # print(type(objFind))
   # app.logger.info(findHad)
   return findHad
+  # return objFind
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=5000)
+  app.run(host='127.0.0.1', port=5000)

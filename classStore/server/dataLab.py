@@ -9,7 +9,8 @@ class POOL():
       creator = pymysql, # use data model
       maxusage = None, # used more times
       setsession = [], # the order list before start
-      ping = 0, # check MySQL server is available
+      # ping = 0, # check MySQL server is available
+      ping = 2,
       closeable = False, # ignored the `conn.close()` ,
       threadlocal = None, # save the link object
       host = SQLConfig.host,

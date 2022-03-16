@@ -6,9 +6,7 @@ class Config(object):
   TESTING = True
 
 class SQLConfig(object):
-  # host = '106.14.190.190'
-  host = 'localhost'
-  # port = 7306
+  host = '127.0.0.1'
   port = 3306
   charset = 'utf8'
   user = Password.user

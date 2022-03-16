@@ -6,6 +6,7 @@ class First():
     print('success')
   def first(self):
     name = request.args.get('name')
+    print(request.args)
     print(name)
     if name:
       # print(name)

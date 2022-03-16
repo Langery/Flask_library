@@ -1,4 +1,5 @@
-from flask import request, make_response
+from flask import request
+# make_response
 import json
 from classStore.server.dataLab import SQLFun
 
@@ -12,12 +13,13 @@ class Register():
     username = data['username']
     nickname = data['nickname']
     password = data['password']
+    # print(username, nickname, password)
     conn = config.connection()
     cursor = conn.cursor()
-    # find in SQL
-    regSQL = SQLFun('*', 'dbusers')
 
-    sqlUser = regSQL.select('name')
+    regSQL = SQLFun('*', 'usertable')
+
+    sqlUser = regSQL.select('username')
     sqlNick = regSQL.select('nickname')
 
     rowUser = cursor.execute(sqlUser, username)
@@ -36,16 +38,12 @@ class Register():
       nickData = False
     res = {}
     if nameData and nickData:
-      # res['username'] = nameData
-      # res['nickname'] = nickData
       res['backData'] = False
-      # print(res)
-      return json.dumps(res)
+      return res
     else:
-      addUser = regSQL.add('name', 'pwd', 'nickname')
-      # print(addUser)
+      addUser = regSQL.add('username', 'password', 'nickname')
+
       rowAdd = cursor.execute(addUser, [username, password, nickname])
-      # print(rowAdd)
       conn.commit()
       if rowAdd >= 1:
         addData = True
@@ -53,4 +51,4 @@ class Register():
         addData = False
       res = {}
       res['backData'] = addData
-      return json.dumps(res)
+      return res
