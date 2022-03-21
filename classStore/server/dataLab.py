@@ -1,6 +1,7 @@
 from DBUtils.PersistentDB import PersistentDB
 import pymysql
 
+# POOL information
 class POOL():
   def __init__(self):
     print('pool.init')
@@ -22,6 +23,7 @@ class POOL():
     )
     return POOL
 
+# SQL Type
 class SQLFun():
   def __init__(self, way, lab):
     self.way = way

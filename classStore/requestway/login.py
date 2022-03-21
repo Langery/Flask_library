@@ -14,9 +14,9 @@ class Login():
     conn = config.connection()
     cursor = conn.cursor()
     # select
-    loginSQL = SQLFun('*', 'dbusers')
+    loginSQL = SQLFun('*', 'usertable')
     sqlName = loginSQL.select('nickname')
-    sqlPwd = loginSQL.select('pwd')
+    sqlPwd = loginSQL.select('password')
     rowName = cursor.execute(sqlName, username)
     rowPws = cursor.execute(sqlPwd, password)
     print(rowName, rowPws)
@@ -31,12 +31,9 @@ class Login():
     else:
       pwdData = False
     res = {}
-    # res['username'] = nameData
-    # res['password'] = pwdData
     if nameData and pwdData:
       res['backData'] = True
     else:
       res['backData'] = False
     print(res)
     return json.dumps(res)
-    # return res

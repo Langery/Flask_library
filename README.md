@@ -50,6 +50,7 @@
   - [ ] 权限
     - [ ] 针对不同的权限进行路由配置
   - [ ] 功能
+    - [x] 功能分区
     - [ ] 将之前的已开发模块嵌入到蓝图框架中，进行近一步优化
     - [x] Calendar
   - [ ] 抛弃原有的开发模式概念，将整体开发模块再次细化
@@ -82,6 +83,7 @@
 
 - [x] 创建总入口，然后通过总入口做请求下发
 - [ ] 登录注册
+  - [x] 注册
   - [ ] 密码校验
   - [ ] 用户信息校验
   - [ ] 用户第三发校验
@@ -120,3 +122,4 @@
 7. [flask项目结构（三）使用蓝图](https://www.cnblogs.com/jackadam/p/8684148.html)
 8. [flask SQLAlchemy模型属性和MySQL数据库数据类型对应关系](https://www.jianshu.com/p/0b23e197e7e0)
 9. [【Flask】Sqlalchemy 常用数据类型](https://www.cnblogs.com/chen0427/p/8627587.html)
+10. [Flask 使用日志](https://www.cnblogs.com/klvchen/p/13754834.html)
