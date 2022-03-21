@@ -16,7 +16,7 @@ from classStore.server.dataLab import POOL
 # import blueprint
 from blueprintStore.admin.adminview import *
 from blueprintStore.user.userview import *
-from blueprintStore.calendar.calendarview import *
+# from blueprintStore.calendar.calendarview import *
 
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
@@ -33,7 +33,7 @@ print(config)
 # Blueprint
 app.register_blueprint(admin_blue, url_prefix = '/admin')
 app.register_blueprint(user_blue, url_prefix = "/user")
-app.register_blueprint(calendar_blue, url_prefix="/calendar")
+# app.register_blueprint(calendar_blue, url_prefix="/calendar")
 
 
 # 测试接口 ======================================================
@@ -78,5 +78,6 @@ if __name__ == '__main__':
     '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s'
   )
   handler.setFormatter(logging_format)
+
   app.logger.addHandler(handler)
   app.run(host='127.0.0.1', port=5000)

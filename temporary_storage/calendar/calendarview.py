@@ -1,6 +1,6 @@
 import config
 from flask import Blueprint
-from classStore.requestway.calendar import Calendar
+from temporary_storage.calendar import Calendar
 
 from classStore.server.dataLab import POOL
 
