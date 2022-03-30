@@ -29,12 +29,20 @@ class SQLFun():
     self.way = way
     self.lab = lab
     #TODO selectway 改成map  遍历数组生成SQL语句
+  def search(self):
+    way = self.way
+    lab = self.lab
+    return  'SELECT ' + way + ' FROM ' + lab;
   def select(self, selectway):
   # def select(self, *key):
     way = self.way
     lab = self.lab
     return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '=%s'
   # SELECT * FROM `event` WHERE userId = "" and createTime = 11 AND isNew = 1;
+  def selectObj(self, para):
+    print('success in selectObj')
+    lab = self.lab
+    return 'SELECT ' + para + ' FROM ' + lab;
   def selectMoreObj(self, *key):
     lab = self.lab
     way = self.way

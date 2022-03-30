@@ -10,6 +10,10 @@ from DBUtils.PersistentDB import PersistentDB
 from classStore.requestway.first import First # 测试接口
 from classStore.requestway.login import Login
 from classStore.requestway.register import Register
+
+# ListTree
+from classStore.requestway.pages_server.list_table import ListTable 
+
 # data lab
 from classStore.server.dataLab import POOL
 
@@ -68,6 +72,18 @@ def register():
   findHad = reg.findHad(config)
   # app.logger.info(findHad)
   return findHad
+
+# 首页接口 =======================================================> start
+
+# 列表树接口
+@app.route('/getTree', methods=['POST'])
+def listTree():
+  res = ListTable()
+  getTree = res.getTree(config)
+  # app.logger.info(getTree)
+  return getTree
+
+# 首页接口 =======================================================> end
 
 if __name__ == '__main__':
   # 错误日志处理
