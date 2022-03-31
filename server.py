@@ -12,7 +12,9 @@ from classStore.requestway.login import Login
 from classStore.requestway.register import Register
 
 # ListTree
-from classStore.requestway.pages_server.list_table import ListTable 
+from classStore.requestway.pages_server.list_table import ListTable
+# upload
+from classStore.requestway.pages_server.upload_table import Upload
 
 # data lab
 from classStore.server.dataLab import POOL
@@ -82,6 +84,15 @@ def listTree():
   getTree = res.getTree(config)
   # app.logger.info(getTree)
   return getTree
+
+# 上传图片接口
+@app.route('/uploadImg', methods=['POST'])
+def uploadsImage():
+  res = Upload()
+  uploadImg = res.uploadImg(config)
+  # app.logger.info(getTree)
+  return uploadImg
+
 
 # 首页接口 =======================================================> end
 

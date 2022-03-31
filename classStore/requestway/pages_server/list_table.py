@@ -10,12 +10,10 @@ class ListTable():
     self.data = data;
   def getTree(self, config):
     print('This is the getTree');
-
     conn = config.connection();
     cursor = conn.cursor();
 
     treeSQL = SQLFun('*', 'listtable');
-
     print('get treeSQL')
 
     sqlData = treeSQL.search()
@@ -50,6 +48,5 @@ class ListTable():
             initTreeData['children'].append(childData)
           continue
         continue
-      continue
 
     return json.dumps(initTree);
