@@ -32,7 +32,7 @@
 - [ ] 对数据库做数据存储和处理
  - [x] 信息存储格式处理
 - [ ] 表单数据处理
-- [ ] 日历
+- [ ] ~~日历~~
   - [ ] 存/取
   - [x] 存储格式和请求方式
   - [x] 数据表建立
@@ -90,7 +90,7 @@
 - [ ] 打包/发版
 - [x] 错误日志输出
   - [x] 错误日志配置
-  - [ ] 错误日志输出
+  - [x] 错误日志输出
   - [ ] 错误日志归档 & 定期分类
 - [ ] 测试
   - [ ] 单元测试
@@ -109,7 +109,7 @@
 - [x] 后台数据返回以对象形式返回
 - [x] 后台数据返回以 JSON 形式返回
 - [x] 基础的模糊查询
-- [ ] 待续...
+- [ ] 待续... --> 转到 [Log 日志](https://github.com/Langery/Flask_library/tree/master/doc/log)
 
 ### [Links](#links):
 
@@ -122,4 +122,4 @@
 7. [flask项目结构（三）使用蓝图](https://www.cnblogs.com/jackadam/p/8684148.html)
 8. [flask SQLAlchemy模型属性和MySQL数据库数据类型对应关系](https://www.jianshu.com/p/0b23e197e7e0)
 9. [【Flask】Sqlalchemy 常用数据类型](https://www.cnblogs.com/chen0427/p/8627587.html)
-10. [Flask 使用日志](https://www.cnblogs.com/klvchen/p/13754834.html)
+10. &ensp;[Flask 使用日志](https://www.cnblogs.com/klvchen/p/13754834.html)

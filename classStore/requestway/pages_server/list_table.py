@@ -14,7 +14,6 @@ class ListTable():
     cursor = conn.cursor();
 
     treeSQL = SQLFun('*', 'listtable');
-    print('get treeSQL')
 
     sqlData = treeSQL.search()
     cursor.execute(sqlData)
@@ -48,5 +47,7 @@ class ListTable():
             initTreeData['children'].append(childData)
           continue
         continue
-
     return json.dumps(initTree);
+
+  def listInfor(self, config):
+    print('This is the listInfor');

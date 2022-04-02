@@ -1,3 +1,4 @@
+from crypt import methods
 from distutils.log import debug
 import json, config
 from pickle import TRUE
@@ -85,6 +86,14 @@ def listTree():
   # app.logger.info(getTree)
   return getTree
 
+# 获取列表详细信息接口
+@app.route('/getListInfor', methods=['GET'])
+def listInfor():
+  res = ListTable();
+  listInfor = res.listInfor(config);
+  # app.logger.info(getTree)
+  return listInfor;
+
 # 上传图片接口
 @app.route('/uploadImg', methods=['POST'])
 def uploadsImage():
@@ -92,7 +101,6 @@ def uploadsImage():
   uploadImg = res.uploadImg(config)
   # app.logger.info(getTree)
   return uploadImg
-
 
 # 首页接口 =======================================================> end
 
