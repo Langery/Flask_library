@@ -51,3 +51,30 @@ class ListTable():
 
   def listInfor(self, config):
     print('This is the listInfor');
+    ids = request.args.get('id')
+
+    conn = config.connection();
+    cursor = conn.cursor();
+    
+    inforSQL = SQLFun('describe', 'listtable');
+    sqlData = inforSQL.select('id');
+    print(sqlData)
+
+    cursor.execute(sqlData, ids)
+    rowDescribe =  cursor.fetchall();
+    conn.commit();
+
+    backDescribe = rowDescribe[0][0]
+
+    cursor.close();
+    conn.close();
+
+    res = {};
+    res['describe'] = backDescribe
+    print(res)
+    return json.dumps(res);
+
+
+
+
+    

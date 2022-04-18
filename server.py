@@ -1,5 +1,3 @@
-from crypt import methods
-from distutils.log import debug
 import json, config
 from pickle import TRUE
 import logging

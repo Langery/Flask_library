@@ -37,8 +37,8 @@ class SQLFun():
   # def select(self, *key):
     way = self.way
     lab = self.lab
-    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '=%s'
-  # SELECT * FROM `event` WHERE userId = "" and createTime = 11 AND isNew = 1;
+    return 'SELECT `' + way + '` FROM ' + lab + ' WHERE ' + selectway + '=%s'
+    # SELECT * FROM `event` WHERE userId = "" and createTime = 11 AND isNew = 1;
   def selectObj(self, para):
     print('success in selectObj')
     lab = self.lab
@@ -77,10 +77,3 @@ class SQLFun():
 
     return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + str(obj_param) + ' < ' + selectway + ' < ' + str(new_param)
 
-
-#插入数据 1 插入一条新的事件   id生成新的 eventId生成新的 isNew =1
-#          更新一个事件      b. id生成新的 eventId是不变的 isnew = 1
-#                          a. 更新sql  把以前的 isnew = 1 的更新成 0   参数 eventId， isnew=1
-#查询数据  查询某一天的  uid，date，isnew （status）   # TODO:
-#       查询某一个事件  eventId
-#
