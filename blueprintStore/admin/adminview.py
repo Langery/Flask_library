@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint;
 
 admin_blue = Blueprint('admin', __name__)
 

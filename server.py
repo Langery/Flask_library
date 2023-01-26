@@ -13,35 +13,35 @@ from classStore.requestway.register import Register
 # ListTree
 from classStore.requestway.pages_server.list_table import ListTable
 # upload
-from classStore.requestway.pages_server.upload_table import Upload
+from classStore.requestway.pages_server.upload_images import Upload
 
 # data lab
-from classStore.server.dataLab import POOL
+from classStore.server.dataLab import POOL;
 
 # import blueprint
-from blueprintStore.admin.adminview import *
-from blueprintStore.user.userview import *
-# from blueprintStore.calendar.calendarview import *
+from blueprintStore.admin.adminview import *;
+from blueprintStore.user.userview import *;
 
-logging.basicConfig(level=logging.DEBUG)
-app = Flask(__name__)
+logging.basicConfig(level=logging.DEBUG);
+app = Flask(__name__);
 
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True);
 
-app.config.from_object(config.Config)
-SQLConfig = config.SQLConfig
+app.config.from_object(config.Config);
+SQLConfig = config.SQLConfig;
 
-getPool = POOL()
-config = getPool.config(SQLConfig)
-print(config)
+getPool = POOL();
+config = getPool.config(SQLConfig);
+print(config);
 
 # Blueprint
+# 访问：127.0.0.1:5000/admin
+# 访问：127.0.0.1:5000/user
 app.register_blueprint(admin_blue, url_prefix = '/admin')
 app.register_blueprint(user_blue, url_prefix = "/user")
-# app.register_blueprint(calendar_blue, url_prefix="/calendar")
 
 
-# 测试接口 ======================================================
+# 测试接口 ====================================================> start
 # address: http://127.0.0.1:5000/first?name=xxx
 @app.route('/first', methods=['GET'])
 def first():
@@ -49,7 +49,7 @@ def first():
   first = res.first()
   print(first)
   return first
-# 测试接口 =====================================================>
+# 测试接口 =====================================================> end
 
 @app.errorhandler(404)
 def page_not_found(error):

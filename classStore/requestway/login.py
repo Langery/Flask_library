@@ -48,7 +48,8 @@ def TokenFun(self):
   data = json.loads(self.data);
   username = data['username'];
   password = data['password'];
-  # id ???
+  userId = data['user_id'];
+  # id ??? user_id
   # header
   header = {"typ": "JWT", "alg": "HS256"};
   header_str = json.dumps(header);
@@ -57,7 +58,7 @@ def TokenFun(self):
   print('base64:', header_encode);
   header_p1 = header_encode.replace(b"=", b"");
 
-  payload = {"username": username, "uid": 0, "exp": time.time() + 300};
+  payload = {"username": username, "uid": userId, "exp": time.time() + 300};
 
   payload_p2 = base64.urlsafe_b64encode(json.dumps(payload).encode()).replace(b"=", b"");
 
