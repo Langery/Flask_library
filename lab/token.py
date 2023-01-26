@@ -5,8 +5,6 @@ import hmac;
 import json;
 import time;
 
-import hmac;
-
 header = {"typ": "JWT", "alg": "HS256"};
 
 header_str = json.dumps(header)
