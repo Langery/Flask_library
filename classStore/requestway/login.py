@@ -13,16 +13,20 @@ class Login():
     self.data = data
   def select(self, config):
     data = json.loads(self.data)
-    username = data['username']
-    password = data['password']
-    conn = config.connection()
-    cursor = conn.cursor()
+    username = data['username'];
+    password = data['password'];
+    conn = config.connection();
+    cursor = conn.cursor();
     # select
     loginSQL = SQLFun('*', 'usertable')
     sqlName = loginSQL.select('nickname')
     sqlPwd = loginSQL.select('password')
-    rowName = cursor.execute(sqlName, username)
-    rowPws = cursor.execute(sqlPwd, password)
+    # rowName = cursor.execute(sqlName, username)
+    # rowPws = cursor.execute(sqlPwd, password)
+    sqluserName = sqlName + username
+    sqluserPws = sqlPwd + password
+    rowName = cursor.execute(sqluserName)
+    rowPws = cursor.execute(sqluserPws)
     print(rowName, rowPws)
     conn.commit()
     # conn.close() # false closure
@@ -40,7 +44,7 @@ class Login():
     else:
       res['backData'] = False
     print(res);
-    token = TokenFun(self);
+    # token = TokenFun(self);
     return json.dumps(res)
 
 # TODO: add id and key

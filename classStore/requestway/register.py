@@ -3,7 +3,7 @@ from flask import request
 import json
 from classStore.server.dataLab import SQLFun
 
-class Register():
+class RegisterDemo():
   def __init__(self):
     print('success use register')
     data = request.get_data()
@@ -13,19 +13,18 @@ class Register():
     username = data['username']
     nickname = data['nickname']
     password = data['password']
-    # print(username, nickname, password)
+    print(username, nickname, password)
     conn = config.connection()
     cursor = conn.cursor()
 
     regSQL = SQLFun('*', 'usertable')
 
-    sqlUser = regSQL.select('username')
-    sqlNick = regSQL.select('nickname')
+    sqlUser = regSQL.selectStr('username', username)
+    sqlNick = regSQL.selectStr('nickname', nickname)
 
-    rowUser = cursor.execute(sqlUser, username)
-    rowNick = cursor.execute(sqlNick, nickname)
+    rowUser = cursor.execute(sqlUser)
+    rowNick = cursor.execute(sqlNick)
 
-    # print(rowUser, rowNick)
     conn.commit()
     if rowUser >= 1:
       nameData = True
