@@ -128,3 +128,4 @@
 9. [【Flask】Sqlalchemy 常用数据类型](https://www.cnblogs.com/chen0427/p/8627587.html)
 10. &ensp;[Flask 使用日志](https://www.cnblogs.com/klvchen/p/13754834.html)
 11. &ensp;[token 生成详解](https://blog.csdn.net/m0_56477185/article/details/124616865)
+12. &ensp;[Flask 中使用 WebSocket 通信](https://blog.csdn.net/WonderThink/article/details/128112042)

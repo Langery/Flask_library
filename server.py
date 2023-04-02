@@ -11,7 +11,7 @@ from classStore.requestway.login import Login
 from classStore.requestway.register import Register
 
 # demo
-from lab.demo import RegisterDemo;
+# from lab.demo import RegisterDemo;
 
 # ListTree
 from classStore.requestway.pages_server.list_table import ListTable
@@ -78,13 +78,6 @@ def register():
   findHad = reg.findHad(config)
   # app.logger.info(findHad)
   return findHad
-
-@app.route('/registerDemo', methods=['POST'])
-def registerDemo():
-  reg = RegisterDemo()
-  findHad = reg.findHad(config)
-  # app.logger.info(findHad)
-  return findHad
 # 注册接口 =====================================================> end
 
 # 首页接口 =======================================================> start
@@ -113,7 +106,7 @@ def uploadsImage():
   # app.logger.info(getTree)
   return uploadImg
 
-# 首页接口 =======================================================> end
+# 首页接口 =======================================================> ends
 
 if __name__ == '__main__':
   # 错误日志处理
