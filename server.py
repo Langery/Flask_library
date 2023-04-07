@@ -26,6 +26,8 @@ from blueprintStore.admin.adminview import *;
 from blueprintStore.user.userview import *;
 
 logging.basicConfig(level=logging.DEBUG);
+
+# >>> def app
 app = Flask(__name__);
 
 CORS(app, supports_credentials=True);
@@ -56,7 +58,7 @@ def first():
 
 @app.errorhandler(404)
 def page_not_found(error):
-  return 'This address does not exist', 404
+  return 'This address does not exist ~~', 404
 
 '''
 POST way to save data

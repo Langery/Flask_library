@@ -3,7 +3,7 @@ from flask import request
 import json
 from classStore.server.dataLab import SQLFun
 
-class RegisterDemo():
+class Register():
   def __init__(self):
     print('success use register')
     data = request.get_data()

@@ -44,7 +44,8 @@ class Login():
     else:
       res['backData'] = False
     print(res);
-    # token = TokenFun(self);
+    token = TokenFun(self);
+    res['tokenId'] = token;
     return json.dumps(res)
 
 # TODO: add id and key
@@ -52,7 +53,10 @@ def TokenFun(self):
   data = json.loads(self.data);
   username = data['username'];
   password = data['password'];
-  userId = data['user_id'];
+  # userId = data['user_id'];
+  UserSQL = SQLFun(username, 'usertable');
+  sqlUid = UserSQL.select('user_id');
+  userId = sqlUid;
   # id ??? user_id
   # header
   header = {"typ": "JWT", "alg": "HS256"};
@@ -77,6 +81,6 @@ def TokenFun(self):
 
   jwt_token = (header_p1 + b"." + payload_p2 + b"." + signature).decode()
 
-  print("token:", jwt_token);
+  # print("token:", jwt_token);
 
   return jwt_token;
