@@ -52,7 +52,7 @@ app.register_blueprint(user_blue, url_prefix = "/user")
 def first():
   res = First()
   first = res.first()
-  print(first)
+  print('server ' + first)
   return first
 # 测试接口 =====================================================> end
 

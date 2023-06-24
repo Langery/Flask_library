@@ -45,10 +45,6 @@ class SQLFun():
     lab = self.lab
     return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '= "' + variable + '"'
     # SELECT * FROM `event` WHERE userId = "" and createTime = 11 AND isNew = 1;
-  def selectObj(self, para):
-    print('success in selectObj')
-    lab = self.lab
-    return 'SELECT ' + para + ' FROM ' + lab;
   def selectMoreObj(self, *key):
     lab = self.lab
     way = self.way

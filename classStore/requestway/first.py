@@ -7,7 +7,7 @@ class First():
   def first(self):
     print(request)
     name = request.args.get('name')
-    # print(name)
+    print(name)
     # if name:
     #   # print(name)
     #   res = make_response('Hello Ajax ' + name)
@@ -15,7 +15,7 @@ class First():
 
     if name:
       print(name)
-
+      return name;
     else:
       print("Error~")
       return 'Nothing data'

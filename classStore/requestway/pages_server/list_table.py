@@ -56,12 +56,16 @@ class ListTable():
     conn = config.connection();
     cursor = conn.cursor();
     
-    inforSQL = SQLFun('describe', 'listtable');
+    inforSQL = SQLFun('describeInfor', 'listtable');
     sqlData = inforSQL.select('id');
-    print(sqlData)
 
-    cursor.execute(sqlData, ids)
+    # cursor.execute(sqlData, ids)
+    cursor.execute(sqlData+ids);
+
     rowDescribe =  cursor.fetchall();
+
+    print(rowDescribe);
+
     conn.commit();
 
     backDescribe = rowDescribe[0][0]
