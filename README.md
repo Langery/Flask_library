@@ -1,23 +1,29 @@
+<div align="center">
+
 ## Flask_library
 
 ![](https://img.shields.io/badge/Language-Python-green)
 [![](https://img.shields.io/bitbucket/issues-raw/Langery/Flask_library)](https://github.com/Langery/Flask_library/issues)
 
-> 启动
+</div>
+
+<div align="center">
+
+[项目说明](#xiang) | [启动](#start) | [idea](#idea) | [advice](#advice) | [need to do](#todo) | [finished](#finished) | [Link](#links)
+
+</div>
+
+## <a id="xiang">项目说明</a>
+
+&emsp;&emsp;Flask 后台库 Menu
+
+## <a id="start">启动</a>
 
 ``` python
   python3 server.py
 ```
 
-### Flask 后台库 Menu
-
-- <a href="#links">Links</a>
-
-> 项目说明
-
-&emsp;&emsp;暂无~
-
-> idea
+## <a id="idea">idea</a>
 
 - [ ] 针对多种请求方式需要单独做处理
   - [x] get
@@ -67,7 +73,7 @@
   - [ ] 用户数据分析处理
 - [ ] 待续...
 
-> advice
+## <a id="advice">advice</a>
 
 - [ ] flask 配置文件
   - [x] 数据库链接写成方法
@@ -83,7 +89,7 @@
 - [ ] 多异步处理
 - [ ] 待续...
 
-> need to do
+## <a id="todo">need to do</a>
 
 - [x] 创建总入口，然后通过总入口做请求下发
 - [ ] 登录注册
@@ -104,7 +110,7 @@
 - [ ] 数据结构 & 算法
 - [ ] 待续...
 
-> finished
+## <a id="finished">finished</a>
 
 - [x] 实现前端对后台的链接和通讯
 - [x] 实现登录和注册接口
@@ -115,7 +121,7 @@
 - [x] 基础的模糊查询
 - [ ] 待续... --> 转到 [Log 日志](https://github.com/Langery/Flask_library/tree/master/doc/log)
 
-### [Links](#links):
+## <a id="links">Links</a>
 
 1. [Python Flask数据库连接池](https://www.cnblogs.com/supery007/p/8206442.html)
 2. [Python编程：flask-cors模块解决Flask跨域请求Cross-Origin问题](https://blog.csdn.net/mouday/article/details/85219076)
