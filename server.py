@@ -1,4 +1,4 @@
-import json, config
+import json, config, os
 from pickle import TRUE
 import logging
 from flask import Flask, render_template, request, redirect, url_for, make_response
@@ -19,7 +19,7 @@ from classStore.requestway.pages_server.list_table import ListTable
 from classStore.requestway.pages_server.upload_images import Upload
 
 # data lab
-from classStore.server.dataLab import POOL;
+from classStore.server.__init__ import POOL;
 
 # import blueprint
 from blueprintStore.admin.adminview import *;
@@ -32,8 +32,12 @@ app = Flask(__name__);
 
 CORS(app, supports_credentials=True);
 
+# from_config 配置项设置
 app.config.from_object(config.Config);
 SQLConfig = config.SQLConfig;
+app.config.from_mapping(
+  SECRET_KEY = 'dev'
+)
 
 getPool = POOL();
 config = getPool.config(SQLConfig);

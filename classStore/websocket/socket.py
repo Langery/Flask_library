@@ -2,7 +2,7 @@ from flask import Flask;
 from flask_sockets import Sockets;
 
 html = Blueprint(r'html', __name__);
-ws = Blueprint(r'ws', __name__)；
+ws = Blueprint(r'ws', __name__);
 
 
 app = Flask(__name__);
