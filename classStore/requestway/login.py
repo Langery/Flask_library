@@ -21,6 +21,7 @@ class Login():
     loginSQL = SQLFun('*', 'usertable')
     sqlName = loginSQL.select('nickname')
     sqlPwd = loginSQL.select('password')
+    print(sqlName, sqlPwd)
     # rowName = cursor.execute(sqlName, username)
     # rowPws = cursor.execute(sqlPwd, password)
     sqluserName = sqlName + username
@@ -50,6 +51,7 @@ class Login():
 
 # TODO: add id and key
 def TokenFun(self):
+  print('success use token')
   data = json.loads(self.data);
   username = data['username'];
   password = data['password'];
