@@ -19,13 +19,8 @@ class Login():
     cursor = conn.cursor();
     # select
     loginSQL = SQLFun('*', 'usertable')
-    sqlName = loginSQL.select('nickname')
-    sqlPwd = loginSQL.select('password')
-    print(sqlName, sqlPwd)
-    # rowName = cursor.execute(sqlName, username)
-    # rowPws = cursor.execute(sqlPwd, password)
-    sqluserName = sqlName + username
-    sqluserPws = sqlPwd + password
+    sqluserName = loginSQL.selectStr('username', username)
+    sqluserPws = loginSQL.selectStr('password', password)
     rowName = cursor.execute(sqluserName)
     rowPws = cursor.execute(sqluserPws)
     print(rowName, rowPws)

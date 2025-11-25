@@ -7,18 +7,21 @@ class SQLFun():
   def search(self):
     way = self.way
     lab = self.lab
-    return  'SELECT ' + way + ' FROM ' + lab;
+    search_back = 'SELECT ' + way + ' FROM ' + lab
+    return  search_back;
   def select(self, selectway):
   # def select(self, *key):
     way = self.way
     lab = self.lab
-    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '='
+    select_back = 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '=';
+    return select_back;
     # SELECT * FROM `event` WHERE userId = "" and createTime = 11 AND isNew = 1;
   def selectStr(self, selectway, variable):
   # def select(self, *key):
     way = self.way
     lab = self.lab
-    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '= "' + variable + '"'
+    selectStr_back = 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + selectway + '= "' + variable + '"'
+    return selectStr_back;
     # SELECT * FROM `event` WHERE userId = "" and createTime = 11 AND isNew = 1;
   def selectMoreObj(self, *key):
     lab = self.lab
@@ -29,8 +32,9 @@ class SQLFun():
 
     newAdd = newAdd[:-5]
 
-    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + newAdd
+    selectMoreObj_back = 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + newAdd
 
+    return selectMoreObj_back;
 
   def add(self, *key):
     lab = self.lab
@@ -43,14 +47,18 @@ class SQLFun():
     keyS = keyS[:-1]
     valueS = valueS[:-1]
 
-    return 'INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')'
+    add_back = 'INSERT INTO ' + lab + ' (' + keyS + ')' + ' VALUES (' + valueS + ')'
+
+    return add_back;
   def like(self, selectway, obj_param):
     way = self.way
     lab = self.lab
-    return '''SELECT {} FROM {} WHERE {} LIKE "{}%"'''.format(way, lab, selectway, obj_param)
+    like_back = '''SELECT {} FROM {} WHERE {} LIKE "{}%"'''.format(way, lab, selectway, obj_param)
+    return like_back;
   def select_timestamp(self, selectway, obj_param, new_param):
     way = self.way
     lab = self.lab
 
-    return 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + str(obj_param) + ' < ' + selectway + ' < ' + str(new_param)
+    timestamp_back = 'SELECT ' + way + ' FROM ' + lab + ' WHERE ' + str(obj_param) + ' < ' + selectway + ' < ' + str(new_param)
+    return timestamp_back;
 
