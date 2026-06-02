@@ -1,21 +1,14 @@
-# 测试接口
-from flask import request, make_response
+from flask import request, jsonify
 
-class First():
-  def __init__(self):
-    print('success')
-  def first(self):
-    print(request)
-    name = request.args.get('name')
-    print(name)
-    # if name:
-    #   # print(name)
-    #   res = make_response('Hello Ajax ' + name)
-    #   return res
 
-    if name:
-      print(name)
-      return name;
-    else:
-      print("Error~")
-      return 'Nothing data'
+class First:
+    def __init__(self):
+        print('success')
+
+    def first(self):
+        name = request.args.get('name')
+        print(name)
+
+        if name:
+            return jsonify({'message': name})
+        return jsonify({'error': 'No data'})

@@ -1,33 +1,33 @@
-# https://blog.csdn.net/m0_56477185/article/details/124616865
+import base64
+import hmac
+import json
+import time
 
-import base64;
-import hmac;
-import json;
-import time;
 
-header = {"typ": "JWT", "alg": "HS256"};
+def generate_token(username, user_id, secret_key='123'):
+    header = {"typ": "JWT", "alg": "HS256"}
+    header_encode = base64.urlsafe_b64encode(
+        json.dumps(header).encode()
+    ).replace(b"=", b"")
 
-header_str = json.dumps(header)
+    payload = {
+        "username": username,
+        "uid": user_id,
+        "exp": time.time() + 300
+    }
+    payload_encode = base64.urlsafe_b64encode(
+        json.dumps(payload).encode()
+    ).replace(b"=", b"")
 
-header_encode = base64.urlsafe_b64encode(header_str.encode())
+    temp = header_encode + b"." + payload_encode
+    temp_hash = hmac.new(secret_key.encode(), temp, digestmod="SHA256")
 
-print('结果:', header_encode);
+    signature = base64.urlsafe_b64encode(temp_hash.digest()).replace(b"=", b"")
 
-header_p1 = header_encode.replace(b"=", b"");
+    jwt_token = (header_encode + b"." + payload_encode + b"." + signature).decode()
+    return jwt_token
 
-payload = {"username": "demo", "uid": 3, 'exp': time.time() + 300 }
 
-payload_p2 = base64.urlsafe_b64encode(json.dumps(payload).encode()).replace(b"=", b"");
-
-temp = header_p1 + b"." + payload_p2;
-
-temp_hash = hmac.new(b"123", temp, digestmod="SHA256");
-
-print("二进制:", temp_hash.digest());
-print("十六进制:", temp_hash.hexdigest());
-
-signature = base64.urlsafe_b64encode(temp_hash.digest()).replace(b"=", b"");
-
-jwt_token = (header_p1 + b"." + payload_p2 + b"." + signature).decode()
-
-print("token:", jwt_token);
+if __name__ == '__main__':
+    token = generate_token('demo', 3)
+    print("Token:", token)

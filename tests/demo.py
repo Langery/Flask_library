@@ -1,23 +1,19 @@
-def test():
-  print('test')
-test()
+def deal_sql(*keys):
+    value_s = ''
+    key_s = ''
+    new_add = ''
+    for index, every_one in enumerate(keys):
+        key_s += every_one + ','
+        value_s += '%s,'
+        new_add += every_one + '=%s and '
 
-def text_dealSQL(*key):
-   valueS = ''
-   keyS = ''
-   newAdd = ''
-   for index, everyOne in enumerate(key):
-      keyS += everyOne+','
-      valueS += '%s,'
-      newAdd += everyOne + '=%s and '
+    new_add = new_add[:-5]
+    print('INSERT INTO (' + key_s + ')' + ' VALUES (' + value_s + ')')
+    print('SELECT * FROM WHERE ' + new_add)
 
-   # keyS = keyS[:-1]
-   # valueS = valueS[:-1]
-   newAdd = newAdd[:-5]
-   print('INSERT INTO (' + keyS + ')' + ' VALUES (' + valueS + ')')
-   print('SELECT * FROM WHERE ' + newAdd)
 
-user = 'user'
-id = 'id'
-name = 'name'
-text_dealSQL(user, id, name)
+if __name__ == '__main__':
+    user = 'user'
+    user_id = 'id'
+    name = 'name'
+    deal_sql(user, user_id, name)

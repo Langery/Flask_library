@@ -1,54 +1,38 @@
-from flask import request
-# make_response
+from flask import request, jsonify
 import json
+
 from classStore.server.dataLab import SQLFun
 
-class Register():
-  def __init__(self):
-    print('success use register')
-    data = request.get_data()
-    self.data = data
-  def findHad(self, config):
-    data = json.loads(self.data)
-    username = data['username']
-    nickname = data['nickname']
-    password = data['password']
-    print(username, nickname, password)
-    conn = config.connection()
-    cursor = conn.cursor()
 
-    regSQL = SQLFun('*', 'usertable')
+class Register:
+    def __init__(self):
+        print('success use register')
+        data = request.get_data()
+        self.data = data
 
-    sqlUser = regSQL.selectStr('username', username)
-    sqlNick = regSQL.selectStr('nickname', nickname)
+    def findHad(self, config):
+        data = json.loads(self.data)
+        username = data['username']
+        nickname = data['nickname']
+        password = data['password']
 
-    rowUser = cursor.execute(sqlUser)
-    rowNick = cursor.execute(sqlNick)
+        conn = config.connection()
+        cursor = conn.cursor()
 
-    conn.commit()
-    if rowUser >= 1:
-      nameData = True
-    else:
-      nameData = False
+        sql_check = "SELECT id FROM usertable WHERE username = ? OR nickname = ?"
+        cursor.execute(sql_check, (username, nickname))
+        existing = cursor.fetchone()
 
-    if rowNick >= 1:
-      nickData = True
-    else:
-      nickData = False
-    res = {}
-    if nameData and nickData:
-      res['backData'] = False
-      return res
-    else:
-      addUser = regSQL.add('username', 'password', 'nickname')
-      rowAdd = cursor.execute(addUser, [username, password, nickname])
-      conn.commit()
-      if rowAdd >= 1:
-        addData = True
-      else:
-        addData = False
-      res = {}
-      res['backData'] = addData
-      return res
+        if existing:
+            return jsonify({'backData': False, 'message': '用户名或昵称已存在'})
 
-# TODO： add user_id
+        sql_insert = "INSERT INTO usertable (username, password, nickname) VALUES (?, ?, ?)"
+        try:
+            cursor.execute(sql_insert, (username, password, nickname))
+            conn.commit()
+            return jsonify({'backData': True, 'message': '注册成功'})
+        except Exception as e:
+            conn.rollback()
+            return jsonify({'backData': False, 'message': str(e)})
+        finally:
+            cursor.close()

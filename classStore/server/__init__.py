@@ -1,24 +1,45 @@
-from DBUtils.PersistentDB import PersistentDB
-import pymysql
+import sqlite3
+import threading
 
-# POOL information
-class POOL():
-  def __init__(self):
-    print('pool.init')
-  def config(self, SQLConfig):
-    POOL = PersistentDB(
-      creator = pymysql, # use data model
-      maxusage = None, # used more times
-      setsession = [], # the order list before start
-      # ping = 0, # check MySQL server is available
-      ping = 2,
-      closeable = False, # ignored the `conn.close()` ,
-      threadlocal = None, # save the link object
-      host = SQLConfig.host,
-      port = SQLConfig.port,
-      user = SQLConfig.user,
-      password = SQLConfig.password,
-      database = SQLConfig.database,
-      charset = SQLConfig.charset
-    )
-    return POOL
+class POOL:
+    def __init__(self):
+        print('pool.init')
+
+    def config(self, SQLConfig=None):
+        return SQLitePool()
+
+class SQLitePool:
+    def __init__(self):
+        self.db_path = 'flask.db'
+        self._local = threading.local()
+        self._init_db()
+
+    def _init_db(self):
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS usertable (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE,
+                password TEXT,
+                nickname TEXT UNIQUE
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS listtable (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT,
+                describeInfor TEXT
+            )
+        ''')
+        conn.commit()
+        conn.close()
+
+    def connection(self):
+        if not hasattr(self._local, 'conn'):
+            self._local.conn = sqlite3.connect(self.db_path)
+            self._local.conn.row_factory = sqlite3.Row
+        return self._local.conn
+
+    def cursor(self):
+        return self.connection().cursor()
