@@ -37,6 +37,15 @@ def execute(sql, params=()):
     return cursor.lastrowid
 
 
+def execute_rowcount(sql, params=()):
+    """执行 INSERT/UPDATE/DELETE,自动 commit,返回受影响行数(用于 DELETE 拿删除数量)"""
+    conn = _get_conn()
+    cursor = conn.cursor()
+    cursor.execute(sql, params)
+    conn.commit()
+    return cursor.rowcount
+
+
 def init_db():
     """启动时建表(已有 IF NOT EXISTS,不会丢数据)"""
     conn = sqlite3.connect(_DB_PATH)
@@ -55,6 +64,20 @@ def init_db():
             name TEXT,
             describeInfor TEXT
         )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS library_items (
+            id TEXT PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            age TEXT,
+            nickname TEXT,
+            create_time TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES usertable(id) ON DELETE CASCADE
+        )
+    ''')
+    cursor.execute('''
+        CREATE INDEX IF NOT EXISTS idx_library_user ON library_items(user_id)
     ''')
     conn.commit()
     conn.close()
