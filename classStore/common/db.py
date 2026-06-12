@@ -87,5 +87,23 @@ def init_db():
             FOREIGN KEY (user_id) REFERENCES usertable(id) ON DELETE CASCADE
         )
     ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS news (
+            id INTEGER PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            title TEXT NOT NULL,
+            body TEXT NOT NULL,
+            created_at TEXT NOT NULL
+        )
+    ''')
+    cursor.execute('''
+        CREATE INDEX IF NOT EXISTS idx_news_user ON news(user_id)
+    ''')
     conn.commit()
     conn.close()
+
+    from blueprintStore.news.seed import seed_news_if_empty
+    seeded = seed_news_if_empty()
+    if seeded:
+        import logging
+        logging.getLogger('flask.app').info(f'News seed injected: {seeded} posts')
