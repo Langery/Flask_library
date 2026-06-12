@@ -10,6 +10,8 @@ selenium-debug.log
 __pycache__/
 userPwd.py
 app.log
+flask.db
+*.sqlite3
 
 # Editor directories and files
 .idea
