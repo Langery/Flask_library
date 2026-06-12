@@ -1,34 +1,8 @@
-import json
-import base64
-import hmac
-import time
 from flask import request
 from classStore.common.db import query_one, execute
+from classStore.common.auth import generate_token
 from classStore.common.response import ok, fail
 from blueprintStore.auth import auth_blue
-
-
-def _generate_token(username, user_id):
-    """手搓 JWT(X-B 替换为 PyJWT 真签名)"""
-    header = {'typ': 'JWT', 'alg': 'HS256'}
-    header_encode = base64.urlsafe_b64encode(
-        json.dumps(header).encode()
-    ).replace(b'=', b'')
-
-    payload = {
-        'username': username,
-        'uid': user_id,
-        'exp': time.time() + 300
-    }
-    payload_encode = base64.urlsafe_b64encode(
-        json.dumps(payload).encode()
-    ).replace(b'=', b'')
-
-    temp = header_encode + b'.' + payload_encode
-    temp_hash = hmac.new(b'', temp, digestmod='SHA256')
-    signature = base64.urlsafe_b64encode(temp_hash.digest()).replace(b'=', b'')
-
-    return (header_encode + b'.' + payload_encode + b'.' + signature).decode()
 
 
 @auth_blue.route('/first', methods=['GET'])
@@ -56,7 +30,7 @@ def login():
     if row:
         return ok({
             'backData': True,
-            'tokenId': _generate_token(username, row['id'])
+            'tokenId': generate_token(row['id'], username)
         })
     return ok({'backData': False})
 

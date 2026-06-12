@@ -4,6 +4,7 @@ from userInfo import Password
 class Config(object):
   DEBUG = True
   TESTING = True
+  SECRET_KEY = 'dev-secret-key-change-in-prod-32B'
 
 class SQLConfig(object):
   host = '127.0.0.1'

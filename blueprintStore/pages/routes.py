@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from flask import request
+from werkzeug.utils import secure_filename
 from classStore.common.db import query_all, query_one
 from classStore.common.response import ok, fail
 from blueprintStore.pages import pages_blue
@@ -48,18 +49,26 @@ def list_infor():
 def upload_img():
     data = request.get_json(silent=True) or {}
     image_data = data.get('image')
-    filename = data.get('filename', f'img_{datetime.now().timestamp()}.jpg')
+    raw_filename = data.get('filename', f'img_{datetime.now().timestamp()}.jpg')
 
     if not image_data:
         return fail('No image data provided', http_status=400)
 
+    # 防御 path traversal:secure_filename 移除路径分隔符和危险字符
+    safe_filename = secure_filename(raw_filename) or f'img_{datetime.now().timestamp()}.jpg'
+
     upload_dir = os.path.join(os.path.dirname(__file__), '../../uploads')
+    upload_dir = os.path.realpath(upload_dir)
     os.makedirs(upload_dir, exist_ok=True)
 
-    filepath = os.path.join(upload_dir, filename)
+    filepath = os.path.realpath(os.path.join(upload_dir, safe_filename))
+    # 二次校验:filepath 必须仍在 upload_dir 之内
+    if not filepath.startswith(upload_dir + os.sep) and filepath != upload_dir:
+        return fail('Invalid filename', http_status=400)
+
     try:
         with open(filepath, 'wb') as f:
             f.write(image_data.encode('utf-8'))
-        return ok({'success': True, 'path': f'/uploads/{filename}'})
+        return ok({'success': True, 'path': f'/uploads/{safe_filename}'})
     except Exception as e:
         return fail(str(e), http_status=500)
