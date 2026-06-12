@@ -79,5 +79,13 @@ def init_db():
     cursor.execute('''
         CREATE INDEX IF NOT EXISTS idx_library_user ON library_items(user_id)
     ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS drag_layouts (
+            user_id INTEGER PRIMARY KEY,
+            layout_json TEXT NOT NULL,
+            updated_at TEXT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES usertable(id) ON DELETE CASCADE
+        )
+    ''')
     conn.commit()
     conn.close()

@@ -7,6 +7,7 @@ from classStore.common.db import init_db
 from blueprintStore.pages import pages_blue
 from blueprintStore.auth import auth_blue
 from blueprintStore.library import library_blue
+from blueprintStore.layout import layout_blue
 import config
 
 app = Flask(__name__)
@@ -18,6 +19,7 @@ init_db()
 app.register_blueprint(auth_blue)
 app.register_blueprint(pages_blue)
 app.register_blueprint(library_blue)
+app.register_blueprint(layout_blue)
 
 register_error_handlers(app)
 
