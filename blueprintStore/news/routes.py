@@ -1,4 +1,4 @@
-from flask import request
+from flask import g, request
 from classStore.common.db import query_all, query_one
 from classStore.common.auth import require_auth
 from classStore.common.response import ok, fail
@@ -70,6 +70,9 @@ def news_detail(news_id):
 @news_blue.route('/news/related/<int:user_id>', methods=['GET'])
 @require_auth
 def news_related(user_id):
+    if g.user_id != user_id:
+        return fail('forbidden', http_status=403)
+
     exclude_id = request.args.get('exclude_id')
     if exclude_id is not None:
         try:

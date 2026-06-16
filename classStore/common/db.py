@@ -99,6 +99,9 @@ def init_db():
     cursor.execute('''
         CREATE INDEX IF NOT EXISTS idx_news_user ON news(user_id)
     ''')
+    cursor.execute('''
+        CREATE INDEX IF NOT EXISTS idx_news_title ON news(title)
+    ''')
     conn.commit()
     conn.close()
 

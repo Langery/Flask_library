@@ -1,10 +1,11 @@
+import os
 # from userPwd import Password
 from userInfo import Password
 
 class Config(object):
   DEBUG = True
   TESTING = True
-  SECRET_KEY = 'dev-secret-key-change-in-prod-32B'
+  SECRET_KEY = os.environ.get('SECRET_KEY') or os.urandom(32).hex()
 
 class SQLConfig(object):
   host = '127.0.0.1'
