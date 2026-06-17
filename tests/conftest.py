@@ -30,22 +30,26 @@ def _isolate_env(monkeypatch):
 
 
 @pytest.fixture
-def app(tmp_path):
+def app(tmp_path, monkeypatch):
     # 1. 每次 fixture 入口先清模块缓存,让 monkeypatch.setenv 生效后再 import
     _purge_app_modules()
 
-    # 2. 在 import 之前,把 db._DB_PATH 切到 tmp_path
+    # 2. rate limit 用 memory://,每个测试因 _purge_app_modules 拿到全新的 server 实例,
+    #    内存计数器天然隔离(flask-limiter 不支持 sqlite:// URI)
+    monkeypatch.setenv('RATELIMIT_STORAGE_URI', 'memory://')
+
+    # 3. 在 import 之前,把 db._DB_PATH 切到 tmp_path
     #    这一步必须先 import classStore.common.db 拿到模块对象
     import classStore.common.db as db_module
     db_module._DB_PATH = str(tmp_path / 'test.db')
 
-    # 3. 现在 import server,触发 init_db() 用新的 _DB_PATH 建表
+    # 4. 现在 import server,触发 init_db() 用新的 _DB_PATH 建表
     import server
     server.app.config['TESTING'] = True
 
     yield server.app
 
-    # 4. 测试结束后清模块缓存,避免下一个测试拿到旧的 app 实例
+    # 5. 测试结束后清模块缓存,避免下一个测试拿到旧的 app 实例
     _purge_app_modules()
 
 

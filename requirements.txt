@@ -1,3 +1,4 @@
 Flask~=3.1
 flask-cors~=6.0
+flask-limiter~=4.1
 PyJWT~=2.13

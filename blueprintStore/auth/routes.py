@@ -2,6 +2,7 @@ from flask import request
 from classStore.common.db import query_one, execute
 from classStore.common.auth import generate_token
 from classStore.common.response import ok, fail
+from classStore.common.limiter import limiter
 from blueprintStore.auth import auth_blue
 
 
@@ -14,6 +15,7 @@ def first():
 
 
 @auth_blue.route('/login', methods=['POST'])
+@limiter.limit('5 per minute')  # 防暴力破解:同 IP 每分钟最多 5 次登录尝试
 def login():
     data = request.get_json(silent=True) or {}
     username = data.get('username')
