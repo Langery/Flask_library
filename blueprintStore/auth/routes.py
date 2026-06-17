@@ -1,9 +1,13 @@
+import logging
+import sqlite3
 from flask import request
 from classStore.common.db import query_one, execute
 from classStore.common.auth import generate_token
 from classStore.common.response import ok, fail
 from classStore.common.limiter import limiter
 from blueprintStore.auth import auth_blue
+
+logger = logging.getLogger(__name__)
 
 
 @auth_blue.route('/first', methods=['GET'])
@@ -60,5 +64,13 @@ def register():
             (username, password, nickname)
         )
         return ok({'backData': True, 'message': '注册成功'})
-    except Exception as e:
-        return ok({'backData': False, 'message': str(e)})
+    except sqlite3.IntegrityError:
+        # 竞态:SELECT 检查与 INSERT 之间被另一请求抢先(UNIQUE 约束冲突)
+        # 对用户而言与"已存在"等价,但日志要带 traceback 便于排查
+        logger.exception('Register race condition: username=%r nickname=%r', username, nickname)
+        return ok({'backData': False, 'message': '用户名或昵称已存在'})
+    except Exception:
+        # 兜底:任何未预期异常都只记日志,绝不回传原始消息
+        # 原始 str(e) 可能含 schema/路径/SQL 信息,属信息泄露
+        logger.exception('Register failed: username=%r', username)
+        return ok({'backData': False, 'message': '注册失败,请稍后重试'})

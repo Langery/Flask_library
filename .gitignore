@@ -12,6 +12,7 @@ userPwd.py
 app.log
 flask.db
 *.sqlite3
+/uploads/
 
 # Editor directories and files
 .idea

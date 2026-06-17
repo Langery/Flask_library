@@ -1,10 +1,13 @@
 import os
+import logging
 from datetime import datetime
 from flask import request
 from werkzeug.utils import secure_filename
 from classStore.common.db import query_all, query_one
 from classStore.common.response import ok, fail
 from blueprintStore.pages import pages_blue
+
+logger = logging.getLogger(__name__)
 
 
 @pages_blue.route('/getTree', methods=['POST'])
@@ -70,5 +73,11 @@ def upload_img():
         with open(filepath, 'wb') as f:
             f.write(image_data.encode('utf-8'))
         return ok({'success': True, 'path': f'/uploads/{safe_filename}'})
-    except Exception as e:
-        return fail(str(e), http_status=500)
+    except (OSError, PermissionError) as e:
+        # 磁盘满/权限拒绝/路径不存在等:日志带 traceback + 绝对路径(运维排查用),
+        # 但响应只回"文件保存失败",不暴露路径和 errno
+        logger.exception('Upload write failed: filepath=%r errno=%s', filepath, e.errno)
+        return fail('文件保存失败', http_status=500)
+    except Exception:
+        logger.exception('Upload unexpected error: filepath=%r', filepath)
+        return fail('上传失败,请稍后重试', http_status=500)
