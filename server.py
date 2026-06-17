@@ -40,7 +40,7 @@ logging.getLogger(__name__).info(
     app.config['RATELIMIT_STORAGE_URI']
 )
 
-app.config.from_object(config.Config)
+app.config.update(config.get_config())
 
 init_db()
 

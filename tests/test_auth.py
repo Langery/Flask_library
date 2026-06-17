@@ -4,8 +4,10 @@
 class TestConfigLoading:
     def test_secret_key_from_env(self):
         """SECRET_KEY 应从环境变量读取,而非硬编码。"""
-        from config import Config
-        assert Config.SECRET_KEY == 'test-secret-key-for-pytest-only-32B'
+        from config import get_config
+        # get_config() 在调用时读 env,TestConfig 走 'test-secret-...' 兜底
+        cfg = get_config('testing')
+        assert cfg['SECRET_KEY'] == 'test-secret-key-for-pytest-only-32B'
 
     def test_userinfo_uses_env(self):
         """userInfo 的 Password 字段不应是硬编码字符串。"""

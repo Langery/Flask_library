@@ -27,6 +27,8 @@ def _isolate_env(monkeypatch, tmp_path):
     monkeypatch.setenv('SQL_PASSWORD', 'test')
     monkeypatch.setenv('SQL_DATABASE', 'test')
     monkeypatch.setenv('SECRET_KEY', 'test-secret-key-for-pytest-only-32B')
+    # APP_ENV=testing 让 config.get_config() 选 TestConfig(TESTING=True, 日志 WARNING)
+    monkeypatch.setenv('APP_ENV', 'testing')
     # 日志目录指向 tmp_path,避免测试日志污染项目根目录
     monkeypatch.setenv('LOG_DIR', str(tmp_path / 'logs'))
     monkeypatch.setenv('LOG_FORMAT', 'text')  # 测试用 text 即可,JSON 单测另有覆盖

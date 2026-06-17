@@ -140,7 +140,7 @@
   - [x] 错误日志输出
   - [x] 错误日志归档 & 定期分类 (TimedRotatingFileHandler 按天切, 保留 30 天, 可选 JSON, 详见 tests/test_logging.py)
 - [ ] 测试
-  - [x] 单元测试 (pytest, 98 用例, 95.5% 覆盖率, 详见 tests/)
+  - [x] 单元测试 (pytest, 137 用例, 96.4% 覆盖率, 详见 tests/)
   - [ ] 本地测试
   - [ ] 模块测试
 - [x] 模糊查询
