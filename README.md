@@ -112,7 +112,7 @@
 
 ## <a id="advice">advice</a>
 
-- [ ] flask 配置文件
+- [x] flask 配置文件
   - [x] 数据库链接写成方法
 - [x] Connection 静态变量（已迁移至 classStore/common/db.py）
 - [ ] 缓存区（如：redis）
