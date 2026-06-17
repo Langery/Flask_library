@@ -3,7 +3,12 @@ import sqlite3
 import threading
 
 _local = threading.local()
-_DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'flask.db')
+# DB 路径:环境变量 DB_PATH 优先,缺省为项目根目录下的 flask.db
+# Docker 部署时挂载 /data 卷 → DB_PATH=/data/flask.db,数据持久化
+_DEFAULT_DB_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'flask.db'
+)
+_DB_PATH = os.environ.get('DB_PATH', _DEFAULT_DB_PATH)
 
 
 def _get_conn():
@@ -48,6 +53,10 @@ def execute_rowcount(sql, params=()):
 
 def init_db():
     """启动时建表(已有 IF NOT EXISTS,不会丢数据)"""
+    # DB_PATH 的父目录可能不存在(Docker 挂载新 volume 时),保险起见创建
+    db_dir = os.path.dirname(_DB_PATH)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
     conn = sqlite3.connect(_DB_PATH)
     cursor = conn.cursor()
     cursor.execute('''

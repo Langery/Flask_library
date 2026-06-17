@@ -35,7 +35,29 @@
   export CORS_ORIGINS=https://app.example.com
 
   # 5. 启动。所有业务接口统一在 /api 前缀下(如 /api/login、/api/news/list)
+  #    生产环境请用 gunicorn(见下面"Docker 部署"),Werkzeug 单进程扛不住并发
   python3 server.py
+```
+
+### Docker 部署
+
+```bash
+  # 1. 复制 .env.example 为 .env 并填入真实值(至少 SECRET_KEY)
+  cp .env.example .env
+  # 编辑 .env,把 SECRET_KEY 改成 `python3 -c 'import secrets; print(secrets.token_hex(32))'` 输出
+
+  # 2. 一行起服务。DB 与日志挂到命名 volume flask_library_data,容器重启不丢
+  docker compose up -d
+
+  # 3. 查看日志
+  docker compose logs -f app
+
+  # 4. 健康检查
+  curl http://localhost:5000/api/health
+  # 期望:{"code":0,"data":{"db":"ok","status":"ok",...}}
+
+  # 5. 停止
+  docker compose down
 ```
 
 ## <a id="idea">idea</a>
@@ -112,7 +134,7 @@
   - [x] 密码校验 (pbkdf2/scrypt 哈希, ≥6 位, 详见 tests/test_auth_password.py)
   - [x] 用户信息校验 (用户名 3-20 位字母/数字/下划线, 昵称 1-30 位)
   - [ ] 用户第三发校验
-- [ ] 打包/发版
+- [x] 打包/发版 (Dockerfile + docker-compose,见 README "Docker 部署",tests/test_docker_config.py)
 - [x] 错误日志输出
   - [x] 错误日志配置
   - [x] 错误日志输出

@@ -1,0 +1,38 @@
+# 排除不需要进镜像的文件
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# 测试 / 缓存(测试不进生产镜像)
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# git / IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+
+# 文档 / Draft
+*.md
+!README.md
+Draft-Paper.md
+doc/
+
+# 老的开发 DB(容器内会重新建或挂载)
+flask.db
+flask.db-journal
+
+# 老的本地日志(容器内会重新写到 /data/log)
+log/
+
+# docker 自身
+Dockerfile
+.dockerignore
+docker-compose.yml

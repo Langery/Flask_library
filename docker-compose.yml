@@ -1,0 +1,29 @@
+services:
+  app:
+    build: .
+    image: flask_library:latest
+    container_name: flask_library
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      # 生产环境必须在 .env 或部署环境里显式注入,这里仅作示例
+      SECRET_KEY: ${SECRET_KEY:?SECRET_KEY must be set}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+      LOG_FORMAT: ${LOG_FORMAT:-text}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      DB_PATH: /data/flask.db
+      LOG_DIR: /data/log
+    volumes:
+      # DB + 日志挂到命名 volume,容器重启不丢
+      - flask_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:5000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  flask_data:
+    name: flask_library_data
