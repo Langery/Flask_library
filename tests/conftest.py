@@ -21,12 +21,15 @@ def _purge_app_modules():
 
 
 @pytest.fixture(autouse=True)
-def _isolate_env(monkeypatch):
+def _isolate_env(monkeypatch, tmp_path):
     """每个测试自动注入测试所需的环境变量。autouse=True 让所有测试都先经过这里。"""
     monkeypatch.setenv('SQL_USER', 'test')
     monkeypatch.setenv('SQL_PASSWORD', 'test')
     monkeypatch.setenv('SQL_DATABASE', 'test')
     monkeypatch.setenv('SECRET_KEY', 'test-secret-key-for-pytest-only-32B')
+    # 日志目录指向 tmp_path,避免测试日志污染项目根目录
+    monkeypatch.setenv('LOG_DIR', str(tmp_path / 'logs'))
+    monkeypatch.setenv('LOG_FORMAT', 'text')  # 测试用 text 即可,JSON 单测另有覆盖
 
 
 @pytest.fixture

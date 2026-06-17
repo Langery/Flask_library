@@ -13,6 +13,7 @@ from blueprintStore.pages import pages_blue
 from classStore.common.db import init_db
 from classStore.common.errors import register_error_handlers
 from classStore.common.limiter import limiter
+from classStore.common.logging_setup import setup_logging
 
 app = Flask(__name__)
 
@@ -53,16 +54,13 @@ limiter.init_app(app)
 
 register_error_handlers(app)
 
+# 日志必须在 app.config / limiter / error handler 全部就位后再 setup,
+# 否则 setup 之前产生的启动日志会落到 root logger 而非 app.logger,
+# 出现"切了归档但启动 banner 漏了"的诡异现象
+setup_logging(app)
+app.logger.info('Flask_library module loaded; blueprints registered')
+
 
 if __name__ == '__main__':
-    if not os.path.exists('log'):
-        os.makedirs('log')
-    handler = logging.FileHandler('log/app.log', encoding='UTF-8')
-    handler.setFormatter(logging.Formatter(
-        '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s'
-    ))
-    app.logger.addHandler(handler)
-    app.logger.setLevel(logging.INFO)
-
     app.logger.info('Flask_library starting on http://127.0.0.1:5000')
     app.run(host='127.0.0.1', port=5000)
