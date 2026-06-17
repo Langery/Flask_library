@@ -1,3 +1,4 @@
+import re
 from flask import g, request
 from classStore.common.db import query_all, query_one
 from classStore.common.auth import require_auth
@@ -7,6 +8,26 @@ from blueprintStore.news import news_blue
 
 _DEFAULT_LIMIT = 10
 _MAX_LIMIT = 50
+
+# FTS5 安全字符:只允许字母/数字/CJK,其他全部 strip 掉,防 MATCH 语法注入
+_FTS_SAFE_CHARS = re.compile(r'[a-zA-Z0-9一-鿿\s]+')
+
+
+def _build_fts_query(raw_keyword):
+    """把用户输入转成安全的 FTS5 MATCH 表达式。
+
+    unicode61 tokenizer 已自动 lowercase + 按空白分词,所以这里只需要:
+    1. 去掉非字母数字/CJK 的字符(防注入,也避开 FTS 保留字符 `* " : ^`)
+    2. 每个 token 加 `*` 后缀做前缀匹配(用户输入"New"能命中"News")
+    3. 多 token 用空格连接(AND 语义,所有词都得命中)
+
+    返回 None 表示无有效 token,调用方应跳过搜索。
+    """
+    cleaned = _FTS_SAFE_CHARS.findall(raw_keyword)
+    tokens = [tok for fragment in cleaned for tok in fragment.split() if tok]
+    if not tokens:
+        return None
+    return ' '.join(f'{tok}*' for tok in tokens)
 
 
 def _serialize(row, include_created_at=False):
@@ -33,18 +54,22 @@ def list_news():
     offset = (page - 1) * limit
 
     keyword = request.args.get('q', '').strip()
+    fts_query = _build_fts_query(keyword) if keyword else None
 
-    where = ''
-    params = []
-    if keyword:
-        where = 'WHERE title LIKE ?'
-        params.append(f'%{keyword}%')
+    if fts_query:
+        where = 'WHERE n.id IN (SELECT rowid FROM news_fts WHERE news_fts MATCH ?)'
+        params = [fts_query]
+        count_sql = f'SELECT COUNT(*) AS c FROM news n {where}'
+    else:
+        where = ''
+        params = []
+        count_sql = 'SELECT COUNT(*) AS c FROM news'
 
-    total_row = query_one(f'SELECT COUNT(*) AS c FROM news {where}', tuple(params))
+    total_row = query_one(count_sql, tuple(params))
     total = total_row['c'] if total_row else 0
 
     rows = query_all(
-        f'SELECT id, user_id, title, body FROM news {where} ORDER BY id DESC LIMIT ? OFFSET ?',
+        f'SELECT n.id, n.user_id, n.title, n.body FROM news n {where} ORDER BY n.id DESC LIMIT ? OFFSET ?',
         tuple(params) + (limit, offset)
     )
     return ok({

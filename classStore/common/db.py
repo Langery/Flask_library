@@ -102,6 +102,35 @@ def init_db():
     cursor.execute('''
         CREATE INDEX IF NOT EXISTS idx_news_title ON news(title)
     ''')
+
+    # FTS5 虚表 + 触发器:让 /news/list 的关键词搜索从 O(n) 全扫变为倒排索引
+    # content='news' + content_rowid='id' 让 FTS5 镜像原表的 rowid,UPDATE 需 delete+insert
+    cursor.execute('''
+        CREATE VIRTUAL TABLE IF NOT EXISTS news_fts USING fts5(
+            title, body,
+            content='news', content_rowid='id',
+            tokenize='unicode61 remove_diacritics 2'
+        )
+    ''')
+    # news_ai: INSERT news → 自动写入 news_fts
+    cursor.execute('''
+        CREATE TRIGGER IF NOT EXISTS news_ai AFTER INSERT ON news BEGIN
+            INSERT INTO news_fts(rowid, title, body) VALUES (new.id, new.title, new.body);
+        END
+    ''')
+    # news_ad: DELETE news → 自动清理 news_fts(走 delete 命令才能级联)
+    cursor.execute('''
+        CREATE TRIGGER IF NOT EXISTS news_ad AFTER DELETE ON news BEGIN
+            INSERT INTO news_fts(news_fts, rowid, title, body) VALUES('delete', old.id, old.title, old.body);
+        END
+    ''')
+    # news_au: UPDATE news → delete + insert 重建 FTS 行
+    cursor.execute('''
+        CREATE TRIGGER IF NOT EXISTS news_au AFTER UPDATE ON news BEGIN
+            INSERT INTO news_fts(news_fts, rowid, title, body) VALUES('delete', old.id, old.title, old.body);
+            INSERT INTO news_fts(rowid, title, body) VALUES (new.id, new.title, new.body);
+        END
+    ''')
     conn.commit()
     conn.close()
 
@@ -110,3 +139,13 @@ def init_db():
     if seeded:
         import logging
         logging.getLogger('flask.app').info(f'News seed injected: {seeded} posts')
+
+    # FTS5 回填:news_fts 是 external content 模式(content='news'),
+    # 普通 INSERT INTO news_fts SELECT ... FROM news 对索引是 no-op,
+    # 必须用 'rebuild' 命令触发 FTS5 扫描 content table 重建索引
+    # (首次启动 news 为空,rebuild 是空操作;老数据升级场景下补齐缺失行)
+    conn = sqlite3.connect(_DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO news_fts(news_fts) VALUES('rebuild')")
+    conn.commit()
+    conn.close()
