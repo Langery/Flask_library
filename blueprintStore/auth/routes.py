@@ -1,5 +1,6 @@
 import logging
 import sqlite3
+from datetime import datetime, timezone
 from flask import request
 from classStore.common.db import query_one, execute
 from classStore.common.auth import generate_token
@@ -16,6 +17,30 @@ def first():
     if name:
         return ok({'message': name})
     return fail('No data', http_status=400)
+
+
+@auth_blue.route('/health', methods=['GET'])
+def health():
+    """Liveness + readiness 探活:DB 可达 → 200,否则 503。
+
+    与 /api/first 的区别:
+    - /api/first: 纯 echo,验证进程在跑(liveness)
+    - /api/health: 验证 DB 连接可用(readiness),K8s/容器编排用这个
+    """
+    db_status = 'ok'
+    try:
+        query_one('SELECT 1 AS x')
+    except Exception:
+        logger.exception('Health check: DB probe failed')
+        db_status = 'error'
+
+    body = {
+        'status': 'ok' if db_status == 'ok' else 'degraded',
+        'db': db_status,
+        'timestamp': datetime.now(timezone.utc).isoformat(),
+    }
+    http_status = 200 if db_status == 'ok' else 503
+    return ok(body, http_status=http_status)
 
 
 @auth_blue.route('/login', methods=['POST'])
