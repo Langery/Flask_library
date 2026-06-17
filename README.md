@@ -34,7 +34,7 @@
   # 4. (可选)CORS 白名单,逗号分隔多个 origin;缺省为 http://localhost:5173
   export CORS_ORIGINS=https://app.example.com
 
-  # 5. 启动
+  # 5. 启动。所有业务接口统一在 /api 前缀下(如 /api/login、/api/news/list)
   python3 server.py
 ```
 
@@ -118,7 +118,7 @@
   - [x] 错误日志输出
   - [ ] 错误日志归档 & 定期分类
 - [ ] 测试
-  - [x] 单元测试 (pytest, 29 用例, 详见 tests/)
+  - [x] 单元测试 (pytest, 37 用例, 详见 tests/)
   - [ ] 本地测试
   - [ ] 模块测试
 - [x] 模糊查询

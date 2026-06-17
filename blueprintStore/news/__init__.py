@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-news_blue = Blueprint('news', __name__)
+news_blue = Blueprint('news', __name__, url_prefix='/api')
 
 from blueprintStore.news import routes
