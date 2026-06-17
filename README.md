@@ -19,7 +19,22 @@
 
 ## <a id="start">启动</a>
 
-``` python
+``` bash
+  # 1. 安装依赖(版本锁定在 requirements.txt)
+  pip3 install -r requirements.txt
+
+  # 2. 注入必填环境变量(SQL_* 是 userInfo.py 读取,SECRET_KEY 是 JWT 签名密钥)
+  export SQL_USER=root
+  export SQL_PASSWORD=your_db_password
+  export SQL_DATABASE=flask
+
+  # 3. 生产环境必须固定 SECRET_KEY,缺省时每次重启 token 全部失效
+  export SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_hex(32))')
+
+  # 4. (可选)CORS 白名单,逗号分隔多个 origin;缺省为 http://localhost:5173
+  export CORS_ORIGINS=https://app.example.com
+
+  # 5. 启动
   python3 server.py
 ```
 
