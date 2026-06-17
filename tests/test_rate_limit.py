@@ -5,7 +5,6 @@
 - 触发 429 后,正确密码也仍被拒
 - 不同的 IP 互不影响(可通过测试客户端构造 X-Forwarded-For 模拟)
 """
-import pytest
 
 
 class TestLoginRateLimit:
@@ -18,7 +17,6 @@ class TestLoginRateLimit:
 
         # flask-limiter 默认不区分 IP(test_client 没有真实 IP),通过 monkeypatch
         # 注入固定 IP 让计数器稳定
-        from werkzeug.test import EnvironBuilder
 
         # 5 次合法(密码错也行,关键是触发计数)
         for i in range(5):

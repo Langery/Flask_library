@@ -1,7 +1,9 @@
 import time
 from functools import wraps
+
 import jwt
-from flask import request, current_app, g
+from flask import current_app, g, request
+
 from classStore.common.response import fail
 
 

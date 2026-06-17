@@ -5,8 +5,8 @@
 """
 import os
 import sys
-import pytest
 
+import pytest
 
 # 让 import 找到项目根目录的 server.py / config.py / classStore / blueprintStore
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

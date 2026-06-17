@@ -1,6 +1,6 @@
+import os
 import sqlite3
 import threading
-import os
 
 _local = threading.local()
 _DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'flask.db')

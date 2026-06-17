@@ -6,7 +6,6 @@
 - DB 不可达 → 503 + status=degraded, db=error(模拟运维场景)
 - 时间戳是合法 ISO 格式
 """
-import pytest
 from datetime import datetime
 
 

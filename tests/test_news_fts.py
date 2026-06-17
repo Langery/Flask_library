@@ -7,7 +7,6 @@
 - 纯特殊字符被剥离后等价于无搜索
 - FTS5 触发器自动同步(直接 INSERT 后能搜到)
 """
-import pytest
 
 
 class TestNewsFtsSearch:

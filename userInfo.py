@@ -1,7 +1,7 @@
 import os
 
 
-class _Password(object):
+class _Password:
     """数据库连接配置。实例属性(property)每次访问时读 env,便于测试隔离。"""
 
     @property

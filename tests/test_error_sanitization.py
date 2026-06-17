@@ -4,7 +4,6 @@
 - /api/register 即便内部异常,响应也不含 SQL/schema/技术细节
 - /api/uploadImg 写文件失败时,响应不含路径/errno/技术细节
 """
-import pytest
 
 
 # 绝不能出现在用户响应中的关键词(任何一条命中即失败)
@@ -58,6 +57,7 @@ class TestRegisterErrorSanitization:
     def test_register_insert_failure_returns_friendly_message(self, client, monkeypatch):
         """强制 INSERT 抛 IntegrityError,验证响应是友好消息不是 str(e)。"""
         import sqlite3
+
         from blueprintStore.auth import routes as auth_routes
 
         # patch routes 模块本地导入的 execute(不是 db_module.execute,

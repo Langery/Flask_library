@@ -1,10 +1,11 @@
 import re
-from flask import g, request
-from classStore.common.db import query_all, query_one
-from classStore.common.auth import require_auth
-from classStore.common.response import ok, fail
-from blueprintStore.news import news_blue
 
+from flask import g, request
+
+from blueprintStore.news import news_blue
+from classStore.common.auth import require_auth
+from classStore.common.db import query_all, query_one
+from classStore.common.response import fail, ok
 
 _DEFAULT_LIMIT = 10
 _MAX_LIMIT = 50

@@ -1,11 +1,12 @@
 import uuid
-from datetime import datetime, timezone
-from flask import g, request
-from classStore.common.db import query_all, query_one, execute, execute_rowcount
-from classStore.common.auth import require_auth
-from classStore.common.response import ok, fail
-from blueprintStore.library import library_blue
+from datetime import UTC, datetime
 
+from flask import g, request
+
+from blueprintStore.library import library_blue
+from classStore.common.auth import require_auth
+from classStore.common.db import execute, execute_rowcount, query_all, query_one
+from classStore.common.response import fail, ok
 
 _SORT_MAP = {
     'create_time_desc': 'create_time DESC',
@@ -54,7 +55,7 @@ def add_item():
         return fail('name is required', http_status=400)
 
     item_id = uuid.uuid4().hex
-    create_time = datetime.now(timezone.utc).isoformat()
+    create_time = datetime.now(UTC).isoformat()
 
     execute(
         'INSERT INTO library_items (id, user_id, name, age, nickname, create_time) VALUES (?, ?, ?, ?, ?, ?)',

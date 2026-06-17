@@ -1,11 +1,12 @@
-import os
 import logging
+import os
+
 # from userPwd import Password
 from userInfo import Password
 
 logger = logging.getLogger(__name__)
 
-class Config(object):
+class Config:
   DEBUG = True
   TESTING = True
   _env_secret = os.environ.get('SECRET_KEY')
@@ -18,7 +19,7 @@ class Config(object):
   else:
     SECRET_KEY = _env_secret
 
-class SQLConfig(object):
+class SQLConfig:
   """MySQL 配置。字段用 property 实现,每次访问读 env,便于测试隔离。"""
   host = '127.0.0.1'
   port = 3306
@@ -36,7 +37,7 @@ class SQLConfig(object):
   def database(self):
     return Password.database
 
-class TestConfig(object):
+class TestConfig:
   TESTING = True
 
 config = {

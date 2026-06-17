@@ -1,0 +1,26 @@
+[project]
+name = "flask-library"
+version = "0.1.0"
+description = "Flask 后台库 menu - JWT auth, FTS5 search, rate limiting"
+requires-python = ">=3.11"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 110
+extend-exclude = [".venv", "build", "dist", "__pycache__"]
+
+[tool.ruff.lint]
+# 默认 E (pycodestyle errors) + F (pyflakes),加 B (bugbear) + UP (pyupgrade)
+# + I (isort)。E501 (line-too-long) 由 line-length 配置兜底,这里不重复开
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = [
+    "E501",  # line-too-long(line-length=110 已处理)
+    "B008",  # 函数调用出现在默认参数(如 Flask route 的 query_one())—— 误报
+]
+
+[tool.ruff.lint.per-file-ignores]
+# blueprint __init__.py 必须 `from . import routes` 加载 route 注册,
+# 这条 import 不在顶部(E402)且 routes 表面看 unused(F401),是 Flask 标准模式
+"blueprintStore/*/__init__.py" = ["E402", "F401"]
+# test 文件常用魔术字符串、assert 长字符串拼接、偶尔 disable 复杂度检查
+"tests/*.py" = ["B011"]

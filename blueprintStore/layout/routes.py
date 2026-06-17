@@ -1,11 +1,12 @@
 import json
-from datetime import datetime, timezone
-from flask import g, request
-from classStore.common.db import query_one, execute
-from classStore.common.auth import require_auth
-from classStore.common.response import ok, fail
-from blueprintStore.layout import layout_blue
+from datetime import UTC, datetime
 
+from flask import g, request
+
+from blueprintStore.layout import layout_blue
+from classStore.common.auth import require_auth
+from classStore.common.db import execute, query_one
+from classStore.common.response import fail, ok
 
 MAX_LAYOUT_BYTES = 64 * 1024
 MAX_ITEMS = 200
@@ -42,7 +43,7 @@ def save_layout():
     if len(layout_json.encode('utf-8')) >= MAX_LAYOUT_BYTES:
         return fail(f'layout too large (max {MAX_LAYOUT_BYTES} bytes)', http_status=400)
 
-    updated_at = datetime.now(timezone.utc).isoformat()
+    updated_at = datetime.now(UTC).isoformat()
     execute('''
         INSERT INTO drag_layouts (user_id, layout_json, updated_at)
         VALUES (?, ?, ?)

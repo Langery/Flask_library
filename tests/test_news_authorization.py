@@ -1,5 +1,4 @@
 """News 接口回归测试 — 重点验证 X-F 修复 (B):/news/related 越权读取。"""
-import pytest
 
 
 class TestNewsList:

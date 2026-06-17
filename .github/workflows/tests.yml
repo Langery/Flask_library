@@ -29,6 +29,9 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
 
+      - name: Lint with ruff
+        run: ruff check .
+
       - name: Run tests
         env:
           SQL_USER: ci

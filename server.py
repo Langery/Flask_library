@@ -1,16 +1,18 @@
-import os
 import logging
+import os
+
 from flask import Flask
 from flask_cors import CORS
-from classStore.common.limiter import limiter
-from classStore.common.errors import register_error_handlers
-from classStore.common.db import init_db
-from blueprintStore.pages import pages_blue
-from blueprintStore.auth import auth_blue
-from blueprintStore.library import library_blue
-from blueprintStore.layout import layout_blue
-from blueprintStore.news import news_blue
+
 import config
+from blueprintStore.auth import auth_blue
+from blueprintStore.layout import layout_blue
+from blueprintStore.library import library_blue
+from blueprintStore.news import news_blue
+from blueprintStore.pages import pages_blue
+from classStore.common.db import init_db
+from classStore.common.errors import register_error_handlers
+from classStore.common.limiter import limiter
 
 app = Flask(__name__)
 

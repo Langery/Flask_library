@@ -1,12 +1,14 @@
 import logging
 import sqlite3
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+
 from flask import request
-from classStore.common.db import query_one, execute
-from classStore.common.auth import generate_token
-from classStore.common.response import ok, fail
-from classStore.common.limiter import limiter
+
 from blueprintStore.auth import auth_blue
+from classStore.common.auth import generate_token
+from classStore.common.db import execute, query_one
+from classStore.common.limiter import limiter
+from classStore.common.response import fail, ok
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +39,7 @@ def health():
     body = {
         'status': 'ok' if db_status == 'ok' else 'degraded',
         'db': db_status,
-        'timestamp': datetime.now(timezone.utc).isoformat(),
+        'timestamp': datetime.now(UTC).isoformat(),
     }
     http_status = 200 if db_status == 'ok' else 503
     return ok(body, http_status=http_status)

@@ -1,5 +1,4 @@
 """基础鉴权 + 配置加载回归测试。"""
-import pytest
 
 
 class TestConfigLoading:

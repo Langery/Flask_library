@@ -1,7 +1,6 @@
 """News seed 数据。模仿 jsonplaceholder 风格,启动时幂等注入 100 条。"""
 
-from datetime import datetime, timezone, timedelta
-
+from datetime import UTC, datetime, timedelta
 
 _REAL_POSTS_1_10 = [
     {
@@ -91,7 +90,7 @@ def _generate_post(post_id):
 def _all_posts():
     """返回 100 条 post 字典。"""
     posts = []
-    base_time = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    base_time = datetime(2026, 1, 1, tzinfo=UTC)
     for i in range(1, 101):
         if i <= 10:
             data = _REAL_POSTS_1_10[i - 1]
@@ -109,7 +108,7 @@ def _all_posts():
 
 def seed_news_if_empty():
     """如果 news 表是空的,注入 100 条 seed。启服务时调用,幂等。"""
-    from classStore.common.db import query_one, execute
+    from classStore.common.db import execute, query_one
 
     existing = query_one('SELECT COUNT(*) AS c FROM news')
     if existing and existing['c'] > 0:

@@ -1,5 +1,4 @@
 """Library 接口回归测试 — 验证已有 403 保护仍生效。"""
-import pytest
 
 
 class TestLibraryCRUD:
