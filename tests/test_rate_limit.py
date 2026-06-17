@@ -13,7 +13,7 @@ class TestLoginRateLimit:
     def test_5_logins_then_6th_returns_429(self, client, monkeypatch):
         """第 6 次登录应触发 429 Too Many Requests。"""
         # 先注册一个用户
-        client.post('/api/register', json={'username': 'rl1', 'nickname': 'rl1n', 'password': 'pw'})
+        client.post('/api/register', json={'username': 'rl1', 'nickname': 'rl1n', 'password': 'pw12345'})
 
         # flask-limiter 默认不区分 IP(test_client 没有真实 IP),通过 monkeypatch
         # 注入固定 IP 让计数器稳定

@@ -1,8 +1,10 @@
 import logging
+import re
 import sqlite3
 from datetime import UTC, datetime
 
 from flask import request
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from blueprintStore.auth import auth_blue
 from classStore.common.auth import generate_token
@@ -11,6 +13,10 @@ from classStore.common.limiter import limiter
 from classStore.common.response import fail, ok
 
 logger = logging.getLogger(__name__)
+
+USERNAME_RE = re.compile(r'^[A-Za-z0-9_]{3,20}$')
+NICKNAME_MAX_LEN = 30
+PASSWORD_MIN_LEN = 6
 
 
 @auth_blue.route('/first', methods=['GET'])
@@ -56,11 +62,28 @@ def login():
         return fail('username and password are required', http_status=400)
 
     row = query_one(
-        'SELECT id, nickname, password FROM usertable WHERE (username = ? OR nickname = ?) AND password = ?',
-        (username, username, password)
+        'SELECT id, nickname, password FROM usertable WHERE (username = ? OR nickname = ?)',
+        (username, username)
     )
+    if not row:
+        # 用户不存在:统一返回 backData=False,不区分"用户不存在"和"密码错"
+        # 防止 username enumeration 攻击
+        return ok({'backData': False})
 
-    if row:
+    # check_password_hash 自动识别 pbkdf2/scrypt/bcrypt 等格式
+    # 对老用户(若 DB 残留 plaintext)用 == 兜底,然后自动升级为 hash
+    stored = row['password']
+    if stored.startswith(('pbkdf2:', 'scrypt:', 'bcrypt')):
+        password_ok = check_password_hash(stored, password)
+    else:
+        # 兼容老 plaintext 用户:比对成功则自动升级为 hash
+        password_ok = (stored == password)
+        if password_ok:
+            new_hash = generate_password_hash(password)
+            execute('UPDATE usertable SET password = ? WHERE id = ?', (new_hash, row['id']))
+            logger.info('Auto-upgraded password hash for user id=%s', row['id'])
+
+    if password_ok:
         return ok({
             'backData': True,
             'tokenId': generate_token(row['id'], username)
@@ -78,6 +101,14 @@ def register():
     if not username or not nickname or not password:
         return fail('username, nickname, password are required', http_status=400)
 
+    # 格式校验:防 SQL 注入残留风险 + 业务规则
+    if not USERNAME_RE.match(username):
+        return fail('用户名必须是 3-20 位字母/数字/下划线', http_status=400)
+    if not nickname.strip() or len(nickname) > NICKNAME_MAX_LEN:
+        return fail(f'昵称必须是 1-{NICKNAME_MAX_LEN} 位非空字符', http_status=400)
+    if len(password) < PASSWORD_MIN_LEN:
+        return fail(f'密码至少 {PASSWORD_MIN_LEN} 位', http_status=400)
+
     existing = query_one(
         'SELECT id FROM usertable WHERE username = ? OR nickname = ?',
         (username, nickname)
@@ -85,10 +116,14 @@ def register():
     if existing:
         return ok({'backData': False, 'message': '用户名或昵称已存在'})
 
+    # pbkdf2:sha256 默认 600000 iterations,带 16 字节 salt
+    # 输出格式 pbkdf2:sha256:600000$<salt>$<hash> ≈ 100+ 字符
+    password_hash = generate_password_hash(password)
+
     try:
         execute(
             'INSERT INTO usertable (username, password, nickname) VALUES (?, ?, ?)',
-            (username, password, nickname)
+            (username, password_hash, nickname)
         )
         return ok({'backData': True, 'message': '注册成功'})
     except sqlite3.IntegrityError:

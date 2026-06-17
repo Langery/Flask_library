@@ -33,7 +33,7 @@ class TestRegisterErrorSanitization:
 
     def test_register_happy_path_no_leak(self, client):
         """正常注册响应不应含技术细节(回归保险)。"""
-        r = client.post('/api/register', json={'username': 'ok_user', 'nickname': 'ok_n', 'password': 'pw'})
+        r = client.post('/api/register', json={'username': 'ok_user', 'nickname': 'ok_n', 'password': 'pw12345'})
         assert r.status_code == 200
         _assert_no_leak(r.get_json(), 'register.ok')
 
@@ -45,9 +45,9 @@ class TestRegisterErrorSanitization:
         # (实际场景:两个请求同时通过 SELECT 检查,后到的 INSERT 失败)
         execute(
             'INSERT INTO usertable (username, password, nickname) VALUES (?, ?, ?)',
-            ('racy_user', 'pw', 'racy_n')
+            ('racy_user', 'pw12345', 'racy_n')
         )
-        r = client.post('/api/register', json={'username': 'racy_user', 'nickname': 'racy_n2', 'password': 'pw'})
+        r = client.post('/api/register', json={'username': 'racy_user', 'nickname': 'racy_n2', 'password': 'pw12345'})
         # SELECT 检查会先命中,返回友好"已存在"消息;响应必须无技术细节
         assert r.status_code == 200
         body = r.get_json()
@@ -71,7 +71,7 @@ class TestRegisterErrorSanitization:
 
         monkeypatch.setattr(auth_routes, 'execute', fake_execute)
 
-        r = client.post('/api/register', json={'username': 'new_user', 'nickname': 'new_n', 'password': 'pw'})
+        r = client.post('/api/register', json={'username': 'new_user', 'nickname': 'new_n', 'password': 'pw12345'})
         assert r.status_code == 200
         body = r.get_json()
         assert body['data']['backData'] is False
@@ -93,7 +93,7 @@ class TestRegisterErrorSanitization:
 
         monkeypatch.setattr(auth_routes, 'execute', fake_execute)
 
-        r = client.post('/api/register', json={'username': 'u3', 'nickname': 'u3n', 'password': 'pw'})
+        r = client.post('/api/register', json={'username': 'usr3', 'nickname': 'u3n', 'password': 'pw12345'})
         assert r.status_code == 200
         body = r.get_json()
         assert body['data']['backData'] is False

@@ -31,11 +31,11 @@ class TestHealthEndpoint:
 
 class TestRegisterLogin:
     def test_register_then_login_succeeds(self, client):
-        r = client.post('/api/register', json={'username': 'u1', 'nickname': 'u1n', 'password': 'pw'})
+        r = client.post('/api/register', json={'username': 'usr1', 'nickname': 'u1n', 'password': 'pw12345'})
         assert r.status_code == 200
         assert r.get_json()['data']['backData'] is True
 
-        r = client.post('/api/login', json={'username': 'u1', 'password': 'pw'})
+        r = client.post('/api/login', json={'username': 'usr1', 'password': 'pw12345'})
         assert r.status_code == 200
         body = r.get_json()
         assert body['data']['backData'] is True
@@ -47,8 +47,8 @@ class TestRegisterLogin:
         assert r.status_code == 400
 
     def test_login_wrong_password_returns_backdata_false(self, client):
-        client.post('/api/register', json={'username': 'u2', 'nickname': 'u2n', 'password': 'pw'})
-        r = client.post('/api/login', json={'username': 'u2', 'password': 'WRONG'})
+        client.post('/api/register', json={'username': 'usr2', 'nickname': 'u2n', 'password': 'pw12345'})
+        r = client.post('/api/login', json={'username': 'usr2', 'password': 'WRONG'})
         assert r.status_code == 200  # 注意:后端业务上不算 fail
         assert r.get_json()['data']['backData'] is False
 

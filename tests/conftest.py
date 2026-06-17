@@ -61,11 +61,11 @@ def client(app):
 @pytest.fixture
 def two_users(client, app):
     """注册 alice / bob 并返回两个 JWT token + 各自的 user_id。"""
-    client.post('/api/register', json={'username': 'alice', 'nickname': 'alice_n', 'password': 'p1'})
-    client.post('/api/register', json={'username': 'bob', 'nickname': 'bob_n', 'password': 'p2'})
+    client.post('/api/register', json={'username': 'alice', 'nickname': 'alice_n', 'password': 'pw_alice'})
+    client.post('/api/register', json={'username': 'bob', 'nickname': 'bob_n', 'password': 'pw_bob'})
 
-    alice_login = client.post('/api/login', json={'username': 'alice', 'password': 'p1'}).get_json()
-    bob_login = client.post('/api/login', json={'username': 'bob', 'password': 'p2'}).get_json()
+    alice_login = client.post('/api/login', json={'username': 'alice', 'password': 'pw_alice'}).get_json()
+    bob_login = client.post('/api/login', json={'username': 'bob', 'password': 'pw_bob'}).get_json()
 
     with app.app_context():
         from classStore.common.db import query_one
