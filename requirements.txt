@@ -4,3 +4,5 @@ flask-limiter~=4.1
 PyJWT~=2.13
 # Lint(dev-only but 装到 requirements 方便 CI 拉取)
 ruff~=0.15
+pytest~=9.1
+pytest-cov~=7.1

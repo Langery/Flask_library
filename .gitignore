@@ -13,6 +13,8 @@ app.log
 flask.db
 *.sqlite3
 /uploads/
+.coverage
+coverage.xml
 
 # Editor directories and files
 .idea

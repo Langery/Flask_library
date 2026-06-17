@@ -24,3 +24,24 @@ ignore = [
 "blueprintStore/*/__init__.py" = ["E402", "F401"]
 # test 文件常用魔术字符串、assert 长字符串拼接、偶尔 disable 复杂度检查
 "tests/*.py" = ["B011"]
+
+[tool.coverage.run]
+# userPwd.py 是 X-G 之前的死代码(已被 env vars 替代),被 .gitignore 排除;
+# 但本地 dev 仍可能在 worktree 里,coverage 顺手跳过
+omit = [
+    "userPwd.py",
+    "tests/*",
+    "__pycache__/*",
+]
+
+[tool.coverage.report]
+# 低于 85% 视为回归失败,但精确 fail-under 由 CI 控制;
+# 这里只设 exclude_lines 等结构化规则
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+show_missing = true
+skip_covered = false
+precision = 1
