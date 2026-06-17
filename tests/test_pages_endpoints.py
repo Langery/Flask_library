@@ -68,6 +68,24 @@ class TestGetListInfor:
         assert r.status_code == 404
 
 
+class TestPagesAuthRequired:
+    """X-R: pages 三个路由(/getTree、/getListInfor、/uploadImg)必须登录才能访问,
+    之前裸奔任何人都能调,是 P1 安全问题。
+    """
+
+    def test_get_tree_without_auth_returns_401(self, client):
+        r = client.post('/api/getTree')
+        assert r.status_code == 401
+
+    def test_get_list_infor_without_auth_returns_401(self, client):
+        r = client.get('/api/getListInfor?id=1')
+        assert r.status_code == 401
+
+    def test_upload_img_without_auth_returns_401(self, client):
+        r = client.post('/api/uploadImg', json={'image': 'data', 'filename': 'x.png'})
+        assert r.status_code == 401
+
+
 class TestUploadImgValidation:
     """POST /api/uploadImg: 校验失败路径(已有 happy path 在 test_error_sanitization)"""
 

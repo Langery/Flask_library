@@ -106,16 +106,16 @@ class TestRegisterErrorSanitization:
 class TestUploadImgErrorSanitization:
     """X-N: /api/uploadImg 写文件失败时不应泄露路径/errno。"""
 
-    def test_upload_img_happy_path(self, client):
+    def test_upload_img_happy_path(self, client, auth_headers):
         """正常上传响应不应含技术细节。"""
         r = client.post('/api/uploadImg', json={
             'image': 'data:image/png;base64,iVBORw0KGgo=',
             'filename': 'normal.png'
-        })
+        }, headers=auth_headers('alice'))
         assert r.status_code == 200
         _assert_no_leak(r.get_json(), 'upload.ok')
 
-    def test_upload_img_oserror_returns_friendly_message(self, client, monkeypatch):
+    def test_upload_img_oserror_returns_friendly_message(self, client, auth_headers, monkeypatch):
         """强制 open() 抛 OSError,验证响应不含 errno/路径。"""
         # 拦截 builtins.open 让它抛 OSError
         import builtins
@@ -129,7 +129,7 @@ class TestUploadImgErrorSanitization:
         r = client.post('/api/uploadImg', json={
             'image': 'data',
             'filename': 'will_fail.png'
-        })
+        }, headers=auth_headers('alice'))
         assert r.status_code == 500
         body = r.get_json()
         # 响应消息必须是通用"文件保存失败",不能含 errno=28 或 'No space'
@@ -138,7 +138,7 @@ class TestUploadImgErrorSanitization:
         # 还原 open,避免影响后续测试
         monkeypatch.setattr(builtins, 'open', original_open)
 
-    def test_upload_img_unexpected_error_returns_generic(self, client, monkeypatch):
+    def test_upload_img_unexpected_error_returns_generic(self, client, auth_headers, monkeypatch):
         """强制 open() 抛 RuntimeError,验证响应是通用消息。"""
         import builtins
 
@@ -150,7 +150,7 @@ class TestUploadImgErrorSanitization:
         r = client.post('/api/uploadImg', json={
             'image': 'data',
             'filename': 'weird.png'
-        })
+        }, headers=auth_headers('alice'))
         assert r.status_code == 500
         body = r.get_json()
         assert body['message'] == '上传失败,请稍后重试'

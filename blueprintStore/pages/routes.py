@@ -6,6 +6,7 @@ from flask import request
 from werkzeug.utils import secure_filename
 
 from blueprintStore.pages import pages_blue
+from classStore.common.auth import require_auth
 from classStore.common.db import query_all, query_one
 from classStore.common.response import fail, ok
 
@@ -13,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 @pages_blue.route('/getTree', methods=['POST'])
+@require_auth
 def get_tree():
     rows = query_all('SELECT * FROM listtable')
     init_tree = []
@@ -39,6 +41,7 @@ def get_tree():
 
 
 @pages_blue.route('/getListInfor', methods=['GET'])
+@require_auth
 def list_infor():
     item_id = request.args.get('id')
     if not item_id:
@@ -51,6 +54,7 @@ def list_infor():
 
 
 @pages_blue.route('/uploadImg', methods=['POST'])
+@require_auth
 def upload_img():
     data = request.get_json(silent=True) or {}
     image_data = data.get('image')
